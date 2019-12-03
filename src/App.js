@@ -6,7 +6,7 @@ import { Route } from 'react-router-dom';
 
 import store, { history } from './store';
 
-import Home from './screens/Home';
+import Home from './components/Home';
 
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';

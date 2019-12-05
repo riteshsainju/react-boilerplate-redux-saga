@@ -8,15 +8,13 @@ import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
 
 const Authentication = ({ match, path }) => {
-  console.log(path);
-  console.log(`${match.url}/signup`);
   return (
     <Switch>
-      <Route exact path={path} render={() => <Redirect to={`${path}/login`} />} />
-      <Route path={`${path}/login`} component={Login} />
+      <Route exact path={`${match.url}`} render={() => <Redirect to={`${match.url}/login`} />} />
+      <Route path={`${match.url}/login`} component={Login} />
       <Route path={`${match.url}/signup`} component={Signup} />
-      <Route path={`${path}/forgot-password`} component={ForgotPassword} />
-      <Route path={`${path}/reset-password`} component={ResetPassword} />
+      <Route path={`${match.url}/forgot-password`} component={ForgotPassword} />
+      <Route path={`${match.url}/reset-password`} component={ResetPassword} />
     </Switch>
   );
 };

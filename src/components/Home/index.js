@@ -2,10 +2,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Table } from 'semantic-ui-react';
-import { PrimaryButton } from '../../commons/Buttons';
-import { getUsersSaga } from '../../actions';
-import { MainTable } from '../../commons/Table';
+import { PrimaryButton } from 'commons/Buttons';
+import { getUsersSaga } from 'actions';
+import { MainTable } from 'commons/Table';
 import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 
 import styles from './styles';
@@ -13,12 +12,10 @@ import styles from './styles';
 class Home extends Component {
   constructor() {
     super();
-    const showMaterialUi = false;
     this.handleBtnOnClick = this.handleBtnOnClick.bind(this);
   }
 
   handleBtnOnClick(val) {
-    this.showMaterialUi = val;
     this.props.getUsersSaga();
   }
 
@@ -26,36 +23,6 @@ class Home extends Component {
     const { users } = this.props;
     return (
       <div style={styles.container}>
-        <Button color="teal" onClick={() => this.handleBtnOnClick(false)}>
-          Load Users
-        </Button>
-        {users.length > 0 && !this.showMaterialUi && (
-          <Table striped>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Username</Table.HeaderCell>
-                <Table.HeaderCell>E-mail</Table.HeaderCell>
-                <Table.HeaderCell>Phone</Table.HeaderCell>
-                <Table.HeaderCell>Website</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {users.map(({ id, name, email, phone, username, website }, i) => (
-                <Table.Row key={i}>
-                  <Table.Cell>{id}</Table.Cell>
-                  <Table.Cell>{name}</Table.Cell>
-                  <Table.Cell>{username}</Table.Cell>
-                  <Table.Cell>{email}</Table.Cell>
-                  <Table.Cell>{phone}</Table.Cell>
-                  <Table.Cell>{website}</Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        )}
-
         <PrimaryButton onClick={() => this.handleBtnOnClick(true)} variant="contained" color="primary">
           Load Users
         </PrimaryButton>

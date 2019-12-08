@@ -15,7 +15,7 @@ class Home extends Component {
     this.handleBtnOnClick = this.handleBtnOnClick.bind(this);
   }
 
-  handleBtnOnClick(val) {
+  handleBtnOnClick() {
     this.props.getUsersSaga();
   }
 
@@ -23,10 +23,10 @@ class Home extends Component {
     const { users } = this.props;
     return (
       <div style={styles.container}>
-        <PrimaryButton onClick={() => this.handleBtnOnClick(true)} variant="contained" color="primary">
+        <PrimaryButton onClick={() => this.handleBtnOnClick()} variant="contained" color="primary">
           Load Users
         </PrimaryButton>
-        {users.length > 0 && this.showMaterialUi && (
+        {users.length > 0 && (
           <MainTable>
             <TableHead>
               <TableRow>

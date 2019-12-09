@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import { withRouter, Switch, Route } from 'react-router-dom';
+import { withRouter, Switch, Redirect } from 'react-router-dom';
 
 import Home from 'components/Home';
 import { PublicRoute, PrivateRoute } from 'commons/Route';
@@ -14,7 +14,7 @@ const App = () => {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Redirect exact from="/" to="/home" />
           <PublicRoute path="/auth" component={Authentication} />
           <PrivateRoute path="/home" component={Home} />
         </Switch>

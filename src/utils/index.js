@@ -1,3 +1,6 @@
+import cookieJar from './cookieJar';
+
+export { cookieJar };
 export const isObject = obj => obj && typeof obj === 'object';
 
 export const isArray = obj => obj && isObject(obj) && obj instanceof Array;
@@ -8,6 +11,8 @@ export const isSubmitButtonDisabled = props => {
 };
 
 export const isLogin = () => {
-  // return true;
+  if (cookieJar.getSession()) {
+    return true;
+  }
   return false;
 };

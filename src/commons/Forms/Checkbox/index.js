@@ -19,7 +19,7 @@ export const CheckboxLabel = styled.div`
       content: '';
       display: inline-block;
       background: ${theme.color.white};
-      border: 1px solid ${theme.color.border.primary};
+      border: 1px solid ${theme.color.checkbox.border};
       box-sizing: border-box;
       border-radius: 4px;
       width: 15px;
@@ -34,9 +34,9 @@ export const CheckboxLabel = styled.div`
     display: none;
     &:checked + label {
       &::before {
-        border-color: ${theme.color.border.primary};
+        border-color: ${theme.color.checkbox.border};
         background: url(${CheckIcon}) no-repeat 1px 0px ${theme.color.white};
-        border: 1px solid ${theme.color.border.primary};
+        border: 1px solid ${theme.color.checkbox.border};
         box-sizing: border-box;
         border-radius: 4px;
         background-size: 11px auto;

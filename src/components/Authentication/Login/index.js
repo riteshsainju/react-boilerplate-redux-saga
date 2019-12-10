@@ -4,12 +4,14 @@ import { reduxForm } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import validate from 'utils/validate';
-import { isSubmitButtonDisabled } from 'utils';
+import { isSubmitButtonDisabled, cookieJar } from 'utils';
 import Login from './Login';
 
 const App = ({ handleSubmit, history, location, ...props }) => {
   const handleFormSubmit = async values => {
-    console.log(values);
+    const headers = { 'access-token': 'token' };
+    cookieJar.setSession(headers);
+    history.push('/');
   };
 
   return (

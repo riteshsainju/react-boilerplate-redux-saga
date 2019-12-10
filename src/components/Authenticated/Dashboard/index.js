@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container } from 'components/Authenticated/styled';
-import { MenuTab, MenuText } from './styled';
+import { PageHeader } from 'commons/Style';
+
+import { MenuTab, MenuText, MenuWrapper } from './styled';
 
 const Dashboard = ({ history }) => {
   const goto = path => {
@@ -9,9 +11,18 @@ const Dashboard = ({ history }) => {
 
   return (
     <Container>
-      <MenuTab>
-        <MenuText onClick={() => goto('/registration')}>Registration</MenuText>
-      </MenuTab>
+      <PageHeader>Dashboard</PageHeader>
+      <MenuWrapper>
+        <MenuTab onClick={() => goto('/registration')}>
+          <MenuText>Registration</MenuText>
+        </MenuTab>
+        <MenuTab>
+          <MenuText>Laboratory</MenuText>
+        </MenuTab>
+        <MenuTab>
+          <MenuText>Stock Management</MenuText>
+        </MenuTab>
+      </MenuWrapper>
     </Container>
   );
 };

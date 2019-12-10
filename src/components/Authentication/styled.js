@@ -9,7 +9,7 @@ export const Container = styled.div`
   text-align: center;
   padding: 40px 60px;
   border: 1px solid ${theme.color.loginPanel.border};
-  background: ${theme.color.loginPanel.background};
+  background: ${theme.color.white};
 `;
 export const HeaderText = styled.div`
   font-size: 25px;

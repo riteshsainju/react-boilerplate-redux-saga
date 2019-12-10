@@ -1,0 +1,11 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  color: #314252;
+  cursor: default;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  font-family: 'Open Sans', 'sans-serif';
+}

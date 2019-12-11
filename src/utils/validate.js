@@ -5,7 +5,7 @@ const validate = (values, { fields }) => {
   const errors = {};
   const emailKeys = ['email'];
   const urlKeys = ['url', 'link'];
-  const phoneKeys = ['phone', 'phone_number'];
+  const phoneKeys = ['phone', 'phone_number', 'mobile_number'];
   const zipCodeKeys = ['zip', 'zip_code'];
   const faxKeys = ['fax'];
 

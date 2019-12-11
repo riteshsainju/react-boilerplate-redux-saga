@@ -10,8 +10,8 @@ import { cookieJar } from 'utils';
 
 const Navbar = ({ history }) => {
   return (
-    <AppBar style={{ background: 'white' }}>
-      <Toolbar style={{ color: '#314252' }}>
+    <AppBar>
+      <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>

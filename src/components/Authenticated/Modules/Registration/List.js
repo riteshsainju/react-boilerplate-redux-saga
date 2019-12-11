@@ -2,22 +2,25 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUsersSaga } from 'actions';
+import { createStructuredSelector } from 'reselect';
+
 import { MainTable } from 'commons/Table';
 import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
+import { selectPatientList } from './selectors';
+import { getPatientList } from './actions';
 
 import styles from './styled';
 
 class PatientList extends Component {
   componentDidMount() {
-    this.props.getUsersSaga();
+    this.props.getPatientList();
   }
 
   render() {
-    const { users } = this.props;
+    const { patients } = this.props;
     return (
       <div style={styles.container}>
-        {users.length > 0 && (
+        {patients && patients.length > 0 && (
           <MainTable>
             <TableHead>
               <TableRow>
@@ -25,8 +28,7 @@ class PatientList extends Component {
                 <TableCell>id</TableCell>
                 <TableCell>Name</TableCell>
                 {/* <TableCell>Video</TableCell> */}
-                <TableCell>UserName</TableCell>
-                <TableCell>Email</TableCell>
+                <TableCell>Address</TableCell>
                 {/* {canGiveFeedback(roles) && <TableCell>Feeback</TableCell>} */}
                 <TableCell>phone</TableCell>
 
@@ -35,12 +37,13 @@ class PatientList extends Component {
             </TableHead>
             <TableBody>
               {' '}
-              {users.map(({ id, name, email, phone, username, website }, i) => (
+              {patients.map(({ id, name, phone, address }, i) => (
                 <TableRow key={id}>
                   <TableCell>{id}</TableCell>
                   <TableCell>{name}</TableCell>
-                  <TableCell>{username}</TableCell>
-                  <TableCell>{email}</TableCell>
+                  <TableCell>
+                    {address.street}, {address.city}
+                  </TableCell>
                   <TableCell>{phone}</TableCell>
                 </TableRow>
               ))}
@@ -51,13 +54,12 @@ class PatientList extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  users: state.usersReducer.users,
+const mapStateToProps = createStructuredSelector({
+  patients: selectPatientList(),
 });
 
 const mapDispatchToProps = dispatch => ({
-  getUsersSaga: () => dispatch(getUsersSaga()),
+  getPatientList: () => dispatch(getPatientList()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PatientList);

@@ -67,7 +67,7 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled }) => {
             <Row>
               <Label>State*</Label>
               <Field
-                name="city"
+                name="address.state"
                 type="text"
                 label="State"
                 component={SelectField}
@@ -76,13 +76,13 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled }) => {
                 required
               />
               <Label>District*</Label>
-              <Field name="district" type="text" label="District" component={TextField} required />
+              <Field name="address.district" type="text" label="District" component={TextField} required />
             </Row>
             <Row>
               <Label>City*</Label>
-              <Field name="city" type="text" label="City" component={TextField} required />
+              <Field name="address.city" type="text" label="City" component={TextField} required />
               <Label>Street*</Label>
-              <Field name="street" type="text" label="Street" component={TextField} required />
+              <Field name="address.street" type="text" label="Street" component={TextField} required />
             </Row>
           </SubFormWrapper>
           <SubFormWrapper>
@@ -91,7 +91,7 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled }) => {
               <Label>Phone</Label>
               <Field name="phone_number" label="Phone" component={TextField} />
               <Label>Mobile*</Label>
-              <Field name="mobile_number" label="Mobile" component={TextField} required />
+              <Field name="mobile_number" label="Mobile" component={TextField} />
             </Row>
             <Row>
               <Label>Ocupation</Label>

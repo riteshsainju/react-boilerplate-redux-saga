@@ -17,6 +17,8 @@ import AddPatient from 'components/Authenticated/Modules/Registration/Form';
 import Authentication from 'components/Authentication';
 import Navbar from 'commons/NavBar';
 import { isLogin } from 'utils';
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const showNav = authPage => {
   if (!authPage && isLogin()) {
@@ -42,6 +44,16 @@ const App = ({ location }) => {
           <PrivateRoute path="/home" component={Home} />
         </Switch>
       </MuiPickersUtilsProvider>
+      <ToastContainer
+        autoClose={5000}
+        closeButton={false}
+        transition={Slide}
+        hideProgressBar
+        draggable={false}
+        position="top-right"
+        toastClassName="toast-inner-container"
+        className="toast-container"
+      />
       {/* </ConnectedRouter> */}
     </>
   );

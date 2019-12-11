@@ -1,5 +1,7 @@
 import React from 'react';
 import { PrimaryButton } from 'commons/Buttons';
+import { Container } from 'components/Authenticated/styled';
+import { PageHeader } from 'commons/Style';
 import PatientList from './List';
 
 const App = ({ history }) => {
@@ -7,8 +9,8 @@ const App = ({ history }) => {
     history.push(path);
   };
   return (
-    <div style={{ 'margin-top': '100px' }}>
-      <div>Patient Registration</div>
+    <Container>
+      <PageHeader>Patient Registration</PageHeader>
       <PrimaryButton
         variant="contained"
         color="primary"
@@ -19,7 +21,7 @@ const App = ({ history }) => {
         Create
       </PrimaryButton>
       <PatientList />
-    </div>
+    </Container>
   );
 };
 

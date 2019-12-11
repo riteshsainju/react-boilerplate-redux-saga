@@ -24,7 +24,6 @@ const clearSession = () => {
 };
 
 const clearAll = () => {
-  debugger;
   const cookies = document.cookie.split(';');
   cookies.forEach(cookie => {
     const eqPos = cookie.indexOf('=');

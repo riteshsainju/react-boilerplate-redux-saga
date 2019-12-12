@@ -10,29 +10,8 @@ import { isSubmitButtonDisabled, cookieJar } from 'utils';
 import LoginForm from './Login';
 import { login } from '../actions';
 
-// const App = ({ handleSubmit, history, location, ...props }) => {
-//   const handleFormSubmit = async values => {
-//     const headers = { 'access-token': 'token' };
-//     cookieJar.setSession(headers);
-//     history.push('/');
-//   };
-
-//   return (
-//     <Login handleFormSubmit={handleFormSubmit} handleSubmit={handleSubmit} disabled={isSubmitButtonDisabled(props)} />
-//   );
-// };
-
-// App.propTypes = {
-//   handleSubmit: PropTypes.func.isRequired,
-//   history     : PropTypes.object.isRequired,
-//   location    : PropTypes.object,
-// };
-
 class Login extends Component {
   handleFormSubmit = async values => {
-    // const headers = { 'access-token': 'token' };
-    // cookieJar.setSession(headers);
-    // history.push('/');
     this.props.login(values);
   };
 

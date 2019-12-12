@@ -34,7 +34,8 @@ const getSession = () => {
 };
 
 const clearSession = () => {
-  Cookies.remove(`${process.env.REACT_APP_SO_COOKIE_PREFIX}_so_jwt_header`);
+  Cookies.remove(`${SO_COOKIE_PREFIX}_so_jwt_token`);
+  Cookies.remove(`${SO_COOKIE_PREFIX}_so_jwt_header`);
 };
 
 const clearAll = () => {

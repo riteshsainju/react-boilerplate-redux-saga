@@ -29,7 +29,7 @@ const showNav = authPage => {
 
 const App = ({ location }) => {
   const isAuthenticationPage = location.pathname.split('/').includes('auth');
-
+  debugger;
   return (
     <>
       {/* <ConnectedRouter history={history}> */}

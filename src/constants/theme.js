@@ -2,7 +2,7 @@ export default {
   color: {
     white       : '#ffffff',
     black       : '#000000',
-    primary     : 'gray',
+    primary     : '#3f51b5',
     secondary   : 'rgba(148, 148, 148, 0.05)',
     primaryLight: 'lightgray',
     text        : {

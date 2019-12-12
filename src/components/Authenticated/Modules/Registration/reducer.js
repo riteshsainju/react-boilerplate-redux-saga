@@ -26,7 +26,7 @@ const registrationReducer = (state = initialState, action) => {
       loading    : false,
       error      : null,
       success    : 'success',
-      patientList: action.data,
+      patientList: action.data.data,
     };
   case CONS.ADD_NEW_PATIENT_SUCCESS:
     return {

@@ -1,6 +1,7 @@
-import { take, cancel, fork, takeLatest } from 'redux-saga/effects';
+import { take, cancel, fork, takeLatest, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { toast } from 'react-toastify';
+import createHistory from 'history/createBrowserHistory';
 
 import { AppSaga } from 'sagas';
 
@@ -8,12 +9,12 @@ import { AppSaga } from 'sagas';
 import * as CONS from './constants';
 import { getPatientListSuccess, getPatientListFailure, addNewPatientSuccess, addNewPatientFailure } from './actions';
 
+const API_BASE = process.env.REACT_APP_API_URL;
 function* redirectOnSuccess(type) {
   if (type === 'getPatientListSuccess') {
     const action = yield take(CONS.GET_PATIENTLIST_SUCCESS);
     const { data } = action;
     if (data) {
-      toast.success('Patient Data Fetched Succesfully');
       console.log('data fetched successfully');
 
       // toast.success('All content list fetched successfully.');
@@ -22,9 +23,11 @@ function* redirectOnSuccess(type) {
   if (type === 'addNewPatientSuccess') {
     const action = yield take(CONS.ADD_NEW_PATIENT_SUCCESS);
     const { data } = action;
+    const history = createHistory();
     if (data) {
       console.log('new patient added successfully');
       toast.success('Patient Data Saved Succesfully');
+      yield call(history.goBack);
 
       // toast.success('All content list fetched successfully.');
     }
@@ -55,10 +58,11 @@ function* getPatientList(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getPatientListSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getPatientListFailure');
 
-  // yield fork(AppSaga.get(`${API_BASE}/patient/list/${action.data}`, getContentListSuccess, getContentListFailure, ''));
-  yield fork(
-    AppSaga.get('https://jsonplaceholder.typicode.com/users', getPatientListSuccess, getPatientListFailure, ''),
-  );
+  yield fork(AppSaga.get(`${API_BASE}/registrations/all`, getPatientListSuccess, getPatientListFailure, ''));
+
+  // yield fork(
+  //   AppSaga.get('https://jsonplaceholder.typicode.com/users', getPatientListSuccess, getPatientListFailure, ''),
+  // );
 
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
@@ -68,9 +72,10 @@ function* getPatientList(action) {
 function* addNewPatient(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'addNewPatientSuccess');
   const errorWatcher = yield fork(redirectOnError, 'addNewPatientFailure');
+  console.log('adding new user');
+  yield fork(AppSaga.post(`${API_BASE}/registrations/store`, addNewPatientSuccess, addNewPatientFailure, action.data));
 
-  // yield fork(AppSaga.post(`${API_BASE}/registration`, addNewPatientSuccess, addNewPatientFailure, action.data));
-  yield fork(AppSaga.get('https://jsonplaceholder.typicode.com/users', addNewPatientSuccess, addNewPatientFailure, ''));
+  // yield fork(AppSaga.get('https://jsonplaceholder.typicode.com/users', addNewPatientSuccess, addNewPatientFailure, ''));
 
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);

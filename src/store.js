@@ -14,7 +14,7 @@ import sagas from './sagas';
 const sagaMiddleware = createSagaMiddleware();
 export default function configureStore(initialState = {}, history) {
   const enhancers = [];
-  const middleware = [routerMiddleware(history), sagaMiddleware];
+  const middleware = [sagaMiddleware, routerMiddleware(history)];
 
   /*
 if (process.env.NODE_ENV === 'development') {

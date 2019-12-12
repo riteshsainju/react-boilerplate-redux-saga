@@ -63,9 +63,8 @@ import { addNewPatient } from '../actions';
 class PatientRegistration extends Component {
   // const App = ({ handleSubmit, history, location, ...props }) => {
   handleFormSubmit = async values => {
-    console.log(values);
+    console.log('form submitted');
     this.props.addNewPatient(values);
-    this.props.history.goBack();
   };
 
   render() {
@@ -74,6 +73,7 @@ class PatientRegistration extends Component {
         handleFormSubmit={this.handleFormSubmit}
         handleSubmit={this.props.handleSubmit}
         disabled={isSubmitButtonDisabled(this.props)}
+        history={this.props.history}
       />
     );
   }
@@ -83,10 +83,12 @@ const validateFields = {
   first_name: { required: true, label: 'First Name' },
   last_name: { required: true, label: 'Last Name' },
   gender: { required: true, label: 'Gender' },
-  'address.state': { required: true, label: 'State' },
-  'address.district': { required: true, label: 'District' },
-  'address.city': { required: true, label: 'City' },
-  'address.street': { required: true, label: 'Street' },
+  state_id: { required: true, label: 'State' },
+  district_id: { required: true, label: 'State' },
+  ward: { required: true, label: 'Ward' },
+  municipality: { required: true, label: 'Municipality' },
+  mobile_number: { required: true, label: 'Mobile Number' },
+  date_of_birth: { required: true, label: 'Date of Birth' },
 };
 
 const mapDispatchToProps = dispatch => ({

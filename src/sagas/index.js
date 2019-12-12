@@ -10,6 +10,7 @@ import { requestJSON } from 'utils/request';
 import { all, fork, put, call } from 'redux-saga/effects';
 
 import registrationSaga from 'components/Authenticated/Modules/Registration/saga';
+import authenticationSaga from 'components/Authentication/saga';
 
 // import { checkAuth } from 'Components/Authenticated/action';
 // import { cookieJar, isEmpty } from 'utils';
@@ -119,7 +120,7 @@ export class AppSaga {
 }
 
 function* appSaga() {
-  yield all([fork(registrationSaga)]);
+  yield all([fork(registrationSaga), fork(authenticationSaga)]);
 }
 
 export default appSaga;

@@ -18,35 +18,57 @@ class PatientList extends Component {
 
   render() {
     const { patients } = this.props;
+    console.log(patients);
     return (
       <div style={styles.container}>
         {patients && patients.length > 0 && (
           <MainTable>
             <TableHead>
               <TableRow>
-                {/* <TableCell>Current</TableCell> */}
-                <TableCell>id</TableCell>
+                <TableCell>Registration Id</TableCell>
                 <TableCell>Name</TableCell>
-                {/* <TableCell>Video</TableCell> */}
                 <TableCell>Address</TableCell>
-                {/* {canGiveFeedback(roles) && <TableCell>Feeback</TableCell>} */}
-                <TableCell>phone</TableCell>
+                <TableCell>Gender</TableCell>
+                <TableCell>D.O.B</TableCell>
+                <TableCell>Mobile Number</TableCell>
+                <TableCell>Admission Date</TableCell>
 
                 <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
               {' '}
-              {patients.map(({ id, name, phone, address }, i) => (
-                <TableRow key={id}>
-                  <TableCell>{id}</TableCell>
-                  <TableCell>{name}</TableCell>
-                  <TableCell>
-                    {address.street}, {address.city}
-                  </TableCell>
-                  <TableCell>{phone}</TableCell>
-                </TableRow>
-              ))}
+              {patients.map(
+                (
+                  {
+                    id,
+                    registration_id,
+                    first_name,
+                    last_name,
+                    gender,
+                    municipality,
+                    ward,
+                    date_of_birth,
+                    mobile_number,
+                    created_at,
+                  },
+                  i,
+                ) => (
+                  <TableRow key={id}>
+                    <TableCell>{registration_id}</TableCell>
+                    <TableCell>
+                      {first_name} {last_name}
+                    </TableCell>
+                    <TableCell>
+                      {municipality} {ward}
+                    </TableCell>
+                    <TableCell>{gender}</TableCell>
+                    <TableCell>{date_of_birth}</TableCell>
+                    <TableCell>{mobile_number}</TableCell>
+                    <TableCell>{created_at.split(' ')[0]}</TableCell>
+                  </TableRow>
+                ),
+              )}
             </TableBody>
           </MainTable>
         )}

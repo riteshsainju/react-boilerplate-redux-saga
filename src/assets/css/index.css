@@ -10,3 +10,8 @@ body {
   font-family: 'Open Sans', 'sans-serif';
   background:#f7f7f7
 }
+
+.toast-container .toast-inner-container {
+  padding: 10px 10px;
+  /* min-height: 0; */
+}

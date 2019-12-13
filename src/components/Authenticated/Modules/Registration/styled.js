@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const styles = {
   container: {
-    marginLeft    : 40,
     marginRight   : 40,
     alignItems    : 'center',
     justifyContent: 'center',

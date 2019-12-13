@@ -8,7 +8,7 @@ import { PrimaryButton } from 'commons/Buttons';
 import Row from 'commons/Forms/Row';
 import { Container, HeaderText, ButtonWrapper } from '../styled';
 
-const Login = ({ handleFormSubmit, handleSubmit, disabled }) => {
+const LoginForm = ({ handleFormSubmit, handleSubmit, disabled }) => {
   return (
     <Container>
       <HeaderText>Login</HeaderText>
@@ -32,10 +32,10 @@ const Login = ({ handleFormSubmit, handleSubmit, disabled }) => {
   );
 };
 
-Login.propTypes = {
+LoginForm.propTypes = {
   disabled        : bool,
   handleFormSubmit: PropTypes.func.isRequired,
   handleSubmit    : PropTypes.func.isRequired,
 };
 
-export default Login;
+export default LoginForm;

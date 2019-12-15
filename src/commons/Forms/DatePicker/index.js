@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import dateFnsFormat from 'date-fns/format';
 
@@ -9,14 +9,10 @@ const DateField = props => {
     ...others
   } = props;
 
-  const initializeDate = val => {
-    return val ? new Date(val) : new Date();
-  };
-
-  const [selectedDate, handleDateChange] = useState(initializeDate(value));
+  // const [selectedDate, handleDateChange] = useState(initializeDate(value));
 
   const onChange = date => {
-    handleDateChange(date);
+    // handleDateChange(date);
     Date.parse(date) ? inputProps.onChange(dateFnsFormat(date, 'yyyy/MM/dd')) : inputProps.onChange(null);
   };
 
@@ -26,7 +22,7 @@ const DateField = props => {
       {...others}
       format="dd/MM/yyyy"
       disabled={submitting}
-      value={selectedDate}
+      value={value ? new Date(value) : null}
       onChange={date => onChange(date)}
     />
   );

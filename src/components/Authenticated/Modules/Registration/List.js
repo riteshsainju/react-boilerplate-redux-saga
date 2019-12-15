@@ -7,6 +7,9 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 import { MainTable } from 'commons/Table';
+import { PopUp } from 'commons/ModalStyle';
+import DeletePatient from './deleteModal';
+
 import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 import { selectPatientList } from './selectors';
 import { getPatientList, deletePatient } from './actions';
@@ -18,6 +21,11 @@ class PatientList extends Component {
   constructor(props) {
     super(props);
   }
+
+  state = {
+    dialogOpen: false,
+  };
+
   componentDidMount() {
     this.props.getPatientList();
   }
@@ -26,14 +34,32 @@ class PatientList extends Component {
     this.props.history.push(url);
   };
 
-  deletePatient = id => {
+  openDialog = id => {
+    this.setState({
+      dialogOpen: true,
+      selectedPatientId: id,
+    });
+  };
+
+  closeDialog = () => {
+    this.setState({
+      dialogOpen: false,
+    });
+  };
+
+  handleDelete = id => {
     this.props.deletePatient(id);
+    this.closeDialog();
   };
 
   render() {
     const { patients } = this.props;
+    const { dialogOpen, selectedPatientId } = this.state;
     return (
       <div style={styles.container}>
+        <PopUp disableAutoFocus open={dialogOpen} onClose={this.closeDialog}>
+          <DeletePatient id={selectedPatientId} handleClose={this.closeDialog} deleteItem={this.handleDelete} />
+        </PopUp>
         {patients && patients.length > 0 && (
           <MainTable>
             <TableHead>
@@ -87,7 +113,7 @@ class PatientList extends Component {
                         <DeleteIcon
                           onClick={event => {
                             event.stopPropagation();
-                            this.deletePatient(id);
+                            this.openDialog(id);
                           }}
                         ></DeleteIcon>
                       </Icon>

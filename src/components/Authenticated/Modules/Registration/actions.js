@@ -9,10 +9,17 @@ export const addNewPatient = action(CONS.ADD_NEW_PATIENT, 'data');
 export const addNewPatientSuccess = action(CONS.ADD_NEW_PATIENT_SUCCESS, 'data');
 export const addNewPatientFailure = action(CONS.ADD_NEW_PATIENT_FAILURE, 'error');
 
-export const editPatient = action(CONS.EDIT_PATIENT, 'data', 'Id', 'redirectUrl');
-export const editPatientSuccess = action(CONS.EDIT_PATIENT_SUCCESS, 'data');
-export const editPatientFailure = action(CONS.EDIT_PATIENT_FAILURE, 'error');
+export const getPatient = action(CONS.GET_PATIENT, 'id');
+export const getPatientSuccess = action(CONS.GET_PATIENT_SUCCESS, 'data');
+export const getPatientFailure = action(CONS.GET_PATIENT_FAILURE, 'error');
+
+export const updatePatient = action(CONS.UPDATE_PATIENT, 'data', 'id', 'redirectUrl');
+export const updatePatientSuccess = action(CONS.UPDATE_PATIENT_SUCCESS, 'data');
+export const updatePatientFailure = action(CONS.UPDATE_PATIENT_FAILURE, 'error');
 
 export const deletePatient = action(CONS.DELETE_PATIENT, 'id', 'redirectUrl');
 export const deletePatientSuccess = action(CONS.DELETE_PATIENT_SUCCESS, 'data');
 export const deletePatientFailure = action(CONS.DELETE_PATIENT_FAILURE, 'error');
+
+export const resetPatientForm = action(CONS.RESET_PATIENT_FORM);
+

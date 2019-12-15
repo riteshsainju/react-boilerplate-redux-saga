@@ -67,7 +67,7 @@ class PatientList extends Component {
                   },
                   i,
                 ) => (
-                  <TableRow key={id} onClick={() => this.goto('/registration/add-patient')}>
+                  <TableRow key={id} onClick={() => this.goto(`/registration/edit-patient/${id}`)}>
                     <TableCell>{registration_id}</TableCell>
                     <TableCell>
                       {first_name} {last_name}
@@ -80,10 +80,10 @@ class PatientList extends Component {
                     <TableCell>{mobile_number}</TableCell>
                     <TableCell>{created_at.split(' ')[0]}</TableCell>
                     <TableCell>
-                      <Icon>
-                        <EditIcon onClick={() => this.goto('/registration/add-patient')}></EditIcon>
+                      <Icon title="Edit">
+                        <EditIcon onClick={() => this.goto(`/registration/edit-patient/${id}`)}></EditIcon>
                       </Icon>
-                      <Icon>
+                      <Icon title="Delete">
                         <DeleteIcon
                           onClick={event => {
                             event.stopPropagation();

@@ -8,7 +8,12 @@ const DateField = props => {
     input: { onBlur, value, ...inputProps },
     ...others
   } = props;
-  const [selectedDate, handleDateChange] = useState(new Date());
+
+  const initializeDate = val => {
+    return val ? new Date(val) : new Date();
+  };
+
+  const [selectedDate, handleDateChange] = useState(initializeDate(value));
 
   const onChange = date => {
     handleDateChange(date);

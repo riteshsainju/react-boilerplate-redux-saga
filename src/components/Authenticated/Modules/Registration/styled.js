@@ -30,5 +30,8 @@ export const SubFormWrapper = styled.div`
 `;
 
 export const Icon = styled.span`
-  padding: 0 4px;
+  padding: 0 8px;
+  :hover {
+    color: blue;
+  }
 `;

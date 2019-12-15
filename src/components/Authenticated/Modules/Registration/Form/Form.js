@@ -13,7 +13,7 @@ import { Container } from 'components/Authenticated/styled';
 import { PageHeader } from 'commons/Style';
 import { Label, SubHeader, FormWrapper, SubFormWrapper } from '../styled';
 
-const Registration = ({ handleFormSubmit, handleSubmit, disabled, history }) => {
+const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formType }) => {
   const gender = [
     { key: 'male', label: 'Male' },
     { key: 'female', label: 'Female' },
@@ -38,7 +38,7 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history }) => 
 
   return (
     <Container>
-      <PageHeader>New Patient</PageHeader>
+      <PageHeader>{formType} Patient</PageHeader>
       <FormWrapper>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <SubHeader>Generic Informations</SubHeader>

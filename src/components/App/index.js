@@ -38,8 +38,9 @@ const App = ({ location }) => {
           <Redirect exact from="/" to="/dashboard" />
           <PublicRoute path="/auth" component={Authentication} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/registration" component={Registration} />
           <PrivateRoute path="/registration/add-patient" component={AddPatient} />
-          <PrivateRoute path="/registration" component={Registration} />
+          <PrivateRoute path="/registration/edit-patient/:id" component={AddPatient} />
           <PrivateRoute path="/home" component={Home} />
         </Switch>
       </MuiPickersUtilsProvider>

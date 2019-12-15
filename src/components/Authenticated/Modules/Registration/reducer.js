@@ -14,7 +14,8 @@ const registrationReducer = (state = initialState, action) => {
   switch (action.type) {
   case CONS.GET_PATIENTLIST:
   case CONS.ADD_NEW_PATIENT:
-  case CONS.EDIT_PATIENT:
+  case CONS.GET_PATIENT:
+  case CONS.UPDATE_PATIENT:
   case CONS.DELETE_PATIENT:
     return {
       ...state,
@@ -28,9 +29,17 @@ const registrationReducer = (state = initialState, action) => {
       loading    : false,
       error      : null,
       success    : 'success',
-      patientList: action.data.data.items,
+      patientList: action.data.data,
     };
-  case CONS.EDIT_PATIENT_SUCCESS:
+  case CONS.GET_PATIENT_SUCCESS:
+    return {
+      ...state,
+      loading    : false,
+      error      : null,
+      success    : 'success',
+      patientData: action.data.data,
+    };
+  case CONS.UPDATE_PATIENT_SUCCESS:
   case CONS.ADD_NEW_PATIENT_SUCCESS:
     return {
       ...state,
@@ -39,19 +48,21 @@ const registrationReducer = (state = initialState, action) => {
       success: 'success',
     };
   case CONS.DELETE_PATIENT_SUCCESS:
-    // const updatedPatientList = { ...state.patientList };
-    // delete updatedPatientList[action.data.data];
+    // eslint-disable-next-line
+      const updatedPatientList = state.patientList;
+
     return {
       ...state,
       loading: false,
       error  : null,
       success: 'success',
 
-      // patientList: updatedPatientList,
+      patientList: updatedPatientList.filter(item => item.id != action.data.data.id),
     };
   case CONS.GET_PATIENTLIST_FAILURE:
+  case CONS.GET_PATIENT_FAILURE:
   case CONS.ADD_NEW_PATIENT_FAILURE:
-  case CONS.EDIT_PATIENT_FAILURE:
+  case CONS.UPDATE_PATIENT_FAILURE:
   case CONS.DELETE_PATIENT_FAILURE:
     return {
       ...state,
@@ -59,6 +70,8 @@ const registrationReducer = (state = initialState, action) => {
       error  : 'error',
       success: null,
     };
+  case CONS.RESET_PATIENT_FORM:
+    return { ...state, error: null, success: null, patientData: {} };
   default:
     return state;
   }

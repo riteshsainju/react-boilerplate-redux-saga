@@ -14,6 +14,8 @@ const registrationReducer = (state = initialState, action) => {
   switch (action.type) {
   case CONS.GET_PATIENTLIST:
   case CONS.ADD_NEW_PATIENT:
+  case CONS.EDIT_PATIENT:
+  case CONS.DELETE_PATIENT:
     return {
       ...state,
       loading: true,
@@ -26,8 +28,9 @@ const registrationReducer = (state = initialState, action) => {
       loading    : false,
       error      : null,
       success    : 'success',
-      patientList: action.data.data,
+      patientList: action.data.data.items,
     };
+  case CONS.EDIT_PATIENT_SUCCESS:
   case CONS.ADD_NEW_PATIENT_SUCCESS:
     return {
       ...state,
@@ -35,8 +38,21 @@ const registrationReducer = (state = initialState, action) => {
       error  : null,
       success: 'success',
     };
+  case CONS.DELETE_PATIENT_SUCCESS:
+    // const updatedPatientList = { ...state.patientList };
+    // delete updatedPatientList[action.data.data];
+    return {
+      ...state,
+      loading: false,
+      error  : null,
+      success: 'success',
+
+      // patientList: updatedPatientList,
+    };
   case CONS.GET_PATIENTLIST_FAILURE:
   case CONS.ADD_NEW_PATIENT_FAILURE:
+  case CONS.EDIT_PATIENT_FAILURE:
+  case CONS.DELETE_PATIENT_FAILURE:
     return {
       ...state,
       loading: false,

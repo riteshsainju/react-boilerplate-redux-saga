@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Table, TableCell, TableRow } from '@material-ui/core';
+import theme from 'constants/theme';
 
 export const MainTable = styled(Table)`
   && {
@@ -26,6 +27,12 @@ export const MainTable = styled(Table)`
         line-height: 17px;
       }
       padding: 13px;
+      tr {
+        cursor: pointer;
+        :hover {
+          background: ${theme.color.grid.secondary};
+        }
+      }
     }
   }
 `;

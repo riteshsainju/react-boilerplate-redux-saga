@@ -3,7 +3,7 @@ export default {
     white       : '#ffffff',
     black       : '#000000',
     primary     : '#3f51b5',
-    secondary   : 'rgba(148, 148, 148, 0.05)',
+    secondary   : 'lightgray',
     primaryLight: 'lightgray',
     text        : {
       primary     : '#314252',
@@ -11,7 +11,7 @@ export default {
     },
     button: {
       primary  : '#449DD1',
-      secondary: '#ddd',
+      secondary: 'lightgray',
     },
     checkbox: {
       border: '#DEDEDE',
@@ -19,6 +19,14 @@ export default {
     loginPanel: {
       border    : 'gray',
       background: '#f7f7f7',
+    },
+    grid: {
+      primary  : '#3f51b5',
+      secondary: 'lightgray',
+    },
+    border: {
+      primary  : '#449DD1',
+      secondary: 'lightgray',
     },
   },
 };

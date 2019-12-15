@@ -28,3 +28,7 @@ export const FormWrapper = styled.div`
 export const SubFormWrapper = styled.div`
   padding-bottom: 20px;
 `;
+
+export const Icon = styled.span`
+  padding: 0 4px;
+`;

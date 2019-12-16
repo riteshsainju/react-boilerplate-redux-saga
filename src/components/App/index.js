@@ -13,7 +13,8 @@ import Home from 'components/Authenticated/Home';
 import Dashboard from 'components/Authenticated/Dashboard';
 import Registration from 'components/Authenticated/Modules/Registration';
 import AddPatient from 'components/Authenticated/Modules/Registration/Form';
-
+import GenericValues from 'components/Authenticated/Settings/Admin/GenericValues';
+import GenericValuesForm from 'components/Authenticated/Settings/Admin/GenericValues/Form';
 import Authentication from 'components/Authentication';
 import Navbar from 'commons/NavBar';
 import { isLogin } from 'utils';
@@ -42,6 +43,10 @@ const App = ({ location }) => {
           <PrivateRoute path="/registration/add-patient" component={AddPatient} />
           <PrivateRoute path="/registration/edit-patient/:id" component={AddPatient} />
           <PrivateRoute path="/home" component={Home} />
+
+          <PrivateRoute exact path="/generic-values" component={GenericValues} />
+          <PrivateRoute path="/generic-values/add" component={GenericValuesForm} />
+          <PrivateRoute path="/generic-values/edit/:id" component={GenericValuesForm} />
         </Switch>
       </MuiPickersUtilsProvider>
       <ToastContainer

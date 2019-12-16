@@ -1,8 +1,7 @@
-import { take, cancel, fork, takeLatest, call, put } from 'redux-saga/effects';
+import { take, cancel, fork, takeLatest, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { toast } from 'react-toastify';
-import createHistory from 'history/createBrowserHistory';
 
 import { AppSaga } from 'sagas';
 
@@ -40,10 +39,9 @@ function* redirectOnSuccess(type) {
   if (type === 'addNewPatientSuccess') {
     const action = yield take(CONS.ADD_NEW_PATIENT_SUCCESS);
     const { data } = action;
-    const history = createHistory();
     if (data) {
       toast.success('Patient Data Saved Succesfully');
-      yield call(history.goBack);
+      yield put(push('/registration'));
     }
   }
   if (type === 'updatePatientSuccess') {

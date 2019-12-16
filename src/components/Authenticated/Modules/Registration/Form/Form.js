@@ -64,7 +64,7 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
             </Row>
             <Row>
               <Label>Date of Birth*</Label>
-              <Field name="date_of_birth" component={DateField} label="Date of Birth" required />
+              <Field name="date_of_birth" maxDate={new Date()} component={DateField} label="Date of Birth" required />
               <Field name="estimated" component={Checkbox} label="Estimated" />
               {/* <Label>Birth Time</Label>
               <Field name="time_of_birth" component={TimeField} label="Time" /> */}

@@ -13,7 +13,7 @@ import { Container } from 'components/Authenticated/styled';
 import { PageHeader } from 'commons/Style';
 import { Label, SubHeader, FormWrapper, SubFormWrapper } from '../styled';
 
-const Registration = ({ handleFormSubmit, handleSubmit, disabled, history }) => {
+const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formType }) => {
   const gender = [
     { key: 'male', label: 'Male' },
     { key: 'female', label: 'Female' },
@@ -38,7 +38,7 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history }) => 
 
   return (
     <Container>
-      <PageHeader>New Patient</PageHeader>
+      <PageHeader>{formType} Patient</PageHeader>
       <FormWrapper>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <SubHeader>Generic Informations</SubHeader>
@@ -64,7 +64,7 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history }) => 
             </Row>
             <Row>
               <Label>Date of Birth*</Label>
-              <Field name="date_of_birth" component={DateField} label="Date of Birth" required />
+              <Field name="date_of_birth" maxDate={new Date()} component={DateField} label="Date of Birth" required />
               <Field name="estimated" component={Checkbox} label="Estimated" />
               {/* <Label>Birth Time</Label>
               <Field name="time_of_birth" component={TimeField} label="Time" /> */}

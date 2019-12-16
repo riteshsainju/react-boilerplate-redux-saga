@@ -17,7 +17,7 @@ const Dashboard = ({ history }) => {
           <MenuText>Registration</MenuText>
         </MenuTab>
         <MenuTab>
-          <MenuText>Laboratory</MenuText>
+          <MenuText onClick={() => goto('/generic-values')}>Generic Values Settings</MenuText>
         </MenuTab>
         <MenuTab>
           <MenuText>Stock Management</MenuText>

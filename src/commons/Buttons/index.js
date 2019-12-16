@@ -7,3 +7,10 @@ export const PrimaryButton = styled(Button)`
     height: 35px;
   }
 `;
+
+export const SecondaryButton = styled(Button)`
+  && {
+    margin: 10px;
+    height: 35px;
+  }
+`;

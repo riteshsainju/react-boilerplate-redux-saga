@@ -38,7 +38,7 @@ export const ModalBody = styled.div`
   padding: ${props => props.padding && props.padding};
 `;
 
-export const HeaderText = styled.div`
+export const Text = styled.div`
   padding: ${props => props.padding && props.padding};
   margin-bottom: 10px;
 `;

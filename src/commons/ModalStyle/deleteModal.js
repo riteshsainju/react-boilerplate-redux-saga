@@ -1,22 +1,22 @@
 import React from 'react';
-import { ModalWrapper, Header, CustomCrossIcon, ModalBody, HeaderText, ButtonWrapper } from 'commons/ModalStyle';
+import { ModalWrapper, Header, CustomCrossIcon, ModalBody, Text, ButtonWrapper } from 'commons/ModalStyle';
 import { PrimaryButton } from 'commons/Buttons';
 
-const DeleteItem = ({ id, handleClose, deleteItem }) => (
+const DeleteItem = ({ id, handleClose, handleDelete, headerText, bodyText }) => (
   <ModalWrapper>
     <Header>
       <span>Delete Confirmation</span>
       <CustomCrossIcon onClick={handleClose} />
     </Header>
     <ModalBody padding="15px">
-      <HeaderText>Are you sure you want to delete?</HeaderText>
-      <HeaderText>The entire data for this patient will be deleted</HeaderText>
+      {headerText && <Text>{headerText}</Text>}
+      {bodyText && <Text>{bodyText}</Text>}
     </ModalBody>
     <ButtonWrapper>
       <PrimaryButton variant="contained" onClick={handleClose} margin="0 10px 0 0">
         Cancel
       </PrimaryButton>
-      <PrimaryButton variant="contained" color="primary" onClick={() => deleteItem(id)}>
+      <PrimaryButton variant="contained" color="primary" onClick={() => handleDelete(id)}>
         Delete
       </PrimaryButton>
     </ButtonWrapper>

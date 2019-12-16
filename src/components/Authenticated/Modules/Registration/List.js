@@ -5,16 +5,17 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+import DeleteIcon from '@material-ui/icons/DeleteOutline';
+import EditIcon from '@material-ui/icons/Edit';
+import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 
 import { MainTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
-import DeletePatient from './deleteModal';
+import DeleteModal from 'commons/ModalStyle/deleteModal';
 
-import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
+// import DeletePatient from './deleteModal';
 import { selectPatientList } from './selectors';
 import { getPatientList, deletePatient } from './actions';
-import DeleteIcon from '@material-ui/icons/DeleteOutline';
-import EditIcon from '@material-ui/icons/Edit';
 import styles, { Icon } from './styled';
 
 class PatientList extends Component {
@@ -58,7 +59,13 @@ class PatientList extends Component {
     return (
       <div style={styles.container}>
         <PopUp disableAutoFocus open={dialogOpen} onClose={this.closeDialog}>
-          <DeletePatient id={selectedPatientId} handleClose={this.closeDialog} deleteItem={this.handleDelete} />
+          <DeleteModal
+            id={selectedPatientId}
+            handleClose={this.closeDialog}
+            handleDelete={this.handleDelete}
+            headerText="Are you sure you want to delete?"
+            bodyText="The entire data for this patient will be deleted."
+          />
         </PopUp>
         {patients && patients.length > 0 && (
           <MainTable>

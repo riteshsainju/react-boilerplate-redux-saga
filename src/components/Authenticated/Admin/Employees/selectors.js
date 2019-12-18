@@ -1,5 +1,5 @@
 export const selectEmployeeList = () => state => {
-  return state.employeesReducer.patientList;
+  return state.employeesReducer.employeeList;
 };
 
 export const selectCurrentPage = () => state => {
@@ -14,7 +14,7 @@ export const selectTotal = () => state => {
   return state.employeesReducer.total;
 };
 export const selectEmployeeData = () => state => {
-  return state.employeesReducer.patientData;
+  return state.employeesReducer.employeeData;
 };
 
 export const selectLoading = () => state => {

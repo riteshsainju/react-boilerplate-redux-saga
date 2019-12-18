@@ -1,5 +1,5 @@
 export const selectDoctorList = () => state => {
-  return state.doctorsReducer.patientList;
+  return state.doctorsReducer.doctorList;
 };
 
 export const selectCurrentPage = () => state => {
@@ -14,7 +14,7 @@ export const selectTotal = () => state => {
   return state.doctorsReducer.total;
 };
 export const selectDoctorData = () => state => {
-  return state.doctorsReducer.patientData;
+  return state.doctorsReducer.doctorData;
 };
 
 export const selectLoading = () => state => {

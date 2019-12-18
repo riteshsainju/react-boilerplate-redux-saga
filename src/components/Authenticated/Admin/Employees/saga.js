@@ -24,6 +24,7 @@ import {
 
 const API_BASE = process.env.REACT_APP_API_URL;
 function* redirectOnSuccess(type) {
+  debugger
   if (type === 'getEmployeeListSuccess') {
     const action = yield take(CONS.GET_EMPLOYEELIST_SUCCESS);
     const { data } = action;
@@ -43,6 +44,7 @@ function* redirectOnSuccess(type) {
     const { data } = action;
     if (data) {
       toast.success('Employee Data Saved Succesfully');
+
       yield put(push(`${EMPLOYEES.EMPLOYEES_ROUTE}`));
     }
   }
@@ -51,6 +53,7 @@ function* redirectOnSuccess(type) {
     const { data } = action;
     if (data) {
       toast.success('Employee Data Updated Succesfully');
+
       yield put(push(`${EMPLOYEES.EMPLOYEES_ROUTE}`));
     }
   }
@@ -104,7 +107,7 @@ function* getEmployees(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getEmployeeListSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getEmployeeListFailure');
   yield fork(
-    AppSaga.get(`${API_BASE}/employees/?page=${action.page}`, getEmployeeListSuccess, getEmployeeListFailure, ''),
+    AppSaga.get(`${API_BASE}/employee/?page=${action.page}`, getEmployeeListSuccess, getEmployeeListFailure, ''),
   );
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
@@ -114,7 +117,7 @@ function* getEmployees(action) {
 function* getEmployee(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getEmployeeSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getEmployeeFailure');
-  yield fork(AppSaga.get(`${API_BASE}/employees/${action.id}`, getEmployeeSuccess, getEmployeeFailure));
+  yield fork(AppSaga.get(`${API_BASE}/employee/${action.id}`, getEmployeeSuccess, getEmployeeFailure));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
   yield cancel(successWatcher);
@@ -123,7 +126,8 @@ function* getEmployee(action) {
 function* addEmployee(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'addEmployeeSuccess');
   const errorWatcher = yield fork(redirectOnError, 'addEmployeeFailure');
-  yield fork(AppSaga.post(`${API_BASE}/employees`, addEmployeeSuccess, addEmployeeFailure, action.data));
+  
+  yield fork(AppSaga.post(`${API_BASE}/employee`, addEmployeeSuccess, addEmployeeFailure, action.data));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
   yield cancel(successWatcher);
@@ -133,7 +137,7 @@ function* updateEmployee(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'updateEmployeeSuccess');
   const errorWatcher = yield fork(redirectOnError, 'updateEmployeeFailure');
   yield fork(
-    AppSaga.put(`${API_BASE}/employees/${action.data.id}`, updateEmployeeSuccess, updateEmployeeFailure, action.data),
+    AppSaga.put(`${API_BASE}/employee/${action.data.id}`, updateEmployeeSuccess, updateEmployeeFailure, action.data),
   );
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
@@ -143,7 +147,7 @@ function* updateEmployee(action) {
 function* deleteEmployee(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'deleteEmployeeSuccess', action.redirectUrl);
   const errorWatcher = yield fork(redirectOnError, 'deleteEmployeeFailure');
-  yield fork(AppSaga.delete(`${API_BASE}/employees/${action.id}`, deleteEmployeeSuccess, deleteEmployeeFailure));
+  yield fork(AppSaga.delete(`${API_BASE}/employee/${action.id}`, deleteEmployeeSuccess, deleteEmployeeFailure));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
   yield cancel(successWatcher);

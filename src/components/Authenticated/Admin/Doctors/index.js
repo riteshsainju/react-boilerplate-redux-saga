@@ -1,8 +1,9 @@
 import React from 'react';
 import { PrimaryButton } from 'commons/Buttons';
 import { PageHeader } from 'commons/Style';
+import { DOCTORS } from 'constants/routes'
 
-// import DoctorList from './List';
+import DoctorList from './List';
 
 const App = ({ history }) => {
   const goto = path => {
@@ -15,12 +16,12 @@ const App = ({ history }) => {
         variant="contained"
         color="primary"
         onClick={() => {
-          goto('/doctor/add');
+          goto(`${DOCTORS.ADD_DOCTOR}`);
         }}
       >
         Create
       </PrimaryButton>
-      {/* <EmployeeList /> */}
+      <DoctorList />
     </>
   );
 };

@@ -104,7 +104,7 @@ function* getDoctors(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getDoctorListSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getDoctorListFailure');
   yield fork(
-    AppSaga.get(`${API_BASE}/doctors/?page=${action.page}`, getDoctorListSuccess, getDoctorListFailure, ''),
+    AppSaga.get(`${API_BASE}/doctor/?page=${action.page}`, getDoctorListSuccess, getDoctorListFailure, ''),
   );
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
@@ -114,7 +114,7 @@ function* getDoctors(action) {
 function* getDoctor(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getDoctorSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getDoctorFailure');
-  yield fork(AppSaga.get(`${API_BASE}/doctors/${action.id}`, getDoctorSuccess, getDoctorFailure));
+  yield fork(AppSaga.get(`${API_BASE}/doctor/${action.id}`, getDoctorSuccess, getDoctorFailure));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
   yield cancel(successWatcher);
@@ -123,7 +123,7 @@ function* getDoctor(action) {
 function* addDoctor(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'addDoctorSuccess');
   const errorWatcher = yield fork(redirectOnError, 'addDoctorFailure');
-  yield fork(AppSaga.post(`${API_BASE}/doctors`, addDoctorSuccess, addDoctorFailure, action.data));
+  yield fork(AppSaga.post(`${API_BASE}/doctor`, addDoctorSuccess, addDoctorFailure, action.data));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
   yield cancel(successWatcher);
@@ -133,7 +133,7 @@ function* updateDoctor(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'updateDoctorSuccess');
   const errorWatcher = yield fork(redirectOnError, 'updateDoctorFailure');
   yield fork(
-    AppSaga.put(`${API_BASE}/doctors/${action.data.id}`, updateDoctorSuccess, updateDoctorFailure, action.data),
+    AppSaga.put(`${API_BASE}/doctor/${action.data.id}`, updateDoctorSuccess, updateDoctorFailure, action.data),
   );
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
@@ -143,7 +143,7 @@ function* updateDoctor(action) {
 function* deleteDoctor(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'deleteDoctorSuccess', action.redirectUrl);
   const errorWatcher = yield fork(redirectOnError, 'deleteDoctorFailure');
-  yield fork(AppSaga.delete(`${API_BASE}/doctors/${action.id}`, deleteDoctorSuccess, deleteDoctorFailure));
+  yield fork(AppSaga.delete(`${API_BASE}/doctor/${action.id}`, deleteDoctorSuccess, deleteDoctorFailure));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
   yield cancel(successWatcher);

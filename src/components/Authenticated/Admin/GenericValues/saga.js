@@ -8,6 +8,7 @@ import { AppSaga } from 'sagas';
 // import { API_BASE } from 'constants';
 import * as CONS from './constants';
 import {
+  getGenericValuesList as getUpdatedGenericValuesList,
   getGenericValuesListSuccess,
   getGenericValuesListFailure,
   getGenericValuesSuccess,
@@ -42,7 +43,7 @@ function* redirectOnSuccess(type) {
     const { data } = action;
     if (data) {
       toast.success('GenericValues Data Saved Succesfully');
-      yield put(push('/generic-values'));
+      yield put(push('/admin/generic-values'));
     }
   }
   if (type === 'updateGenericValuesSuccess') {
@@ -50,7 +51,7 @@ function* redirectOnSuccess(type) {
     const { data } = action;
     if (data) {
       toast.success('GenericValues Data Updated Succesfully');
-      yield put(push('/generic-values'));
+      yield put(push('/admin/generic-values'));
     }
   }
   if (type === 'deleteGenericValuesSuccess') {
@@ -58,6 +59,7 @@ function* redirectOnSuccess(type) {
     const { data } = action;
     if (data) {
       toast.success('GenericValues Data Deleted Succesfully');
+      yield put(getUpdatedGenericValuesList());
     }
   }
 }
@@ -102,7 +104,7 @@ function* getGenericValuesList(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getGenericValuesListSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getGenericValuesListFailure');
 
-  yield fork(AppSaga.get(`${API_BASE}/generic`, getGenericValuesListSuccess, getGenericValuesListFailure, ''));
+  yield fork(AppSaga.get(`${API_BASE}/generic/?page=${action.page}`, getGenericValuesListSuccess, getGenericValuesListFailure, ''));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
   yield cancel(successWatcher);

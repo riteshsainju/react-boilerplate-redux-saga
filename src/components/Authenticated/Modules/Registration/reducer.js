@@ -63,7 +63,7 @@ const registrationReducer = (state = initialState, action) => {
       error  : null,
       success: 'success',
 
-      patientList: updatedPatientList.filter(item => item.id != action.data.data.id),
+      patientList: updatedPatientList.filter(item => item.id !== action.data.data.id),
     };
   case CONS.GET_PATIENTLIST_FAILURE:
   case CONS.GET_PATIENT_FAILURE:

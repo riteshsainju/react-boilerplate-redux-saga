@@ -1,7 +1,7 @@
 import action from 'actions';
 import * as CONS from './constants';
 
-export const getPatientList = action(CONS.GET_PATIENTLIST, 'data');
+export const getPatientList = action(CONS.GET_PATIENTLIST, 'page');
 export const getPatientListSuccess = action(CONS.GET_PATIENTLIST_SUCCESS, 'data');
 export const getPatientListFailure = action(CONS.GET_PATIENTLIST_FAILURE, 'error');
 
@@ -22,4 +22,3 @@ export const deletePatientSuccess = action(CONS.DELETE_PATIENT_SUCCESS, 'data');
 export const deletePatientFailure = action(CONS.DELETE_PATIENT_FAILURE, 'error');
 
 export const resetPatientForm = action(CONS.RESET_PATIENT_FORM);
-

@@ -9,12 +9,13 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 
-import { MainTable } from 'commons/Table';
+import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
 import DeleteModal from 'commons/ModalStyle/deleteModal';
+import { isEmpty } from 'utils';
 
 // import DeletePatient from './deleteModal';
-import { selectPatientList } from './selectors';
+import { selectPatientList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from './selectors';
 import { getPatientList, deletePatient } from './actions';
 import styles, { Icon } from './styled';
 
@@ -25,10 +26,11 @@ class PatientList extends Component {
 
   state = {
     dialogOpen: false,
+    page: 0,
   };
 
   componentDidMount() {
-    this.props.getPatientList();
+    this.props.getPatientList(1);
   }
 
   goto = url => {
@@ -53,8 +55,12 @@ class PatientList extends Component {
     this.closeDialog();
   };
 
+  handleChangePage = (event, newPage) => {
+    this.props.getPatientList(1 + newPage);
+  };
+
   render() {
-    const { patients } = this.props;
+    const { patients, loading, currentPage, total, rowsPerPage } = this.props;
     const { dialogOpen, selectedPatientId } = this.state;
     return (
       <div style={styles.container}>
@@ -67,7 +73,7 @@ class PatientList extends Component {
             bodyText="The entire data for this patient will be deleted."
           />
         </PopUp>
-        {patients && patients.length > 0 && (
+        <>
           <MainTable>
             <TableHead>
               <TableRow>
@@ -83,66 +89,80 @@ class PatientList extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {' '}
-              {patients.map(
-                (
-                  {
-                    id,
-                    registration_id,
-                    first_name,
-                    last_name,
-                    gender,
-                    municipality,
-                    ward,
-                    date_of_birth,
-                    mobile_number,
-                    created_at,
-                  },
-                  i,
-                ) => (
-                  <TableRow key={id} onClick={() => this.goto(`/registration/edit-patient/${id}`)}>
-                    <TableCell>{registration_id}</TableCell>
-                    <TableCell>
-                      {first_name} {last_name}
-                    </TableCell>
-                    <TableCell>
-                      {municipality} {ward}
-                    </TableCell>
-                    <TableCell>{gender}</TableCell>
-                    <TableCell>{date_of_birth}</TableCell>
-                    <TableCell>{mobile_number}</TableCell>
-                    <TableCell>{created_at.split(' ')[0]}</TableCell>
-                    <TableCell>
-                      <Icon title="Edit">
-                        <EditIcon onClick={() => this.goto(`/registration/edit-patient/${id}`)}></EditIcon>
-                      </Icon>
-                      <Icon title="Delete">
-                        <DeleteIcon
-                          onClick={event => {
-                            event.stopPropagation();
-                            this.openDialog(id);
-                          }}
-                        ></DeleteIcon>
-                      </Icon>
-                    </TableCell>
-                  </TableRow>
-                ),
+              {isEmpty(patients) ? (
+                <CenterEmptyTable message={loading ? 'Loading...' : 'No data available'} />
+              ) : (
+                patients.map(
+                  (
+                    {
+                      id,
+                      registration_id,
+                      first_name,
+                      last_name,
+                      gender,
+                      municipality,
+                      ward,
+                      date_of_birth,
+                      mobile_number,
+                      created_at,
+                    },
+                    i,
+                  ) => (
+                    <TableRow key={id} onClick={() => this.goto(`/registration/edit-patient/${id}`)}>
+                      <TableCell>{registration_id}</TableCell>
+                      <TableCell>
+                        {first_name} {last_name}
+                      </TableCell>
+                      <TableCell>
+                        {municipality} {ward}
+                      </TableCell>
+                      <TableCell>{gender}</TableCell>
+                      <TableCell>{date_of_birth}</TableCell>
+                      <TableCell>{mobile_number}</TableCell>
+                      <TableCell>{created_at.split(' ')[0]}</TableCell>
+                      <TableCell>
+                        <Icon title="Edit">
+                          <EditIcon onClick={() => this.goto(`/registration/edit-patient/${id}`)}></EditIcon>
+                        </Icon>
+                        <Icon title="Delete">
+                          <DeleteIcon
+                            onClick={event => {
+                              event.stopPropagation();
+                              this.openDialog(id);
+                            }}
+                          ></DeleteIcon>
+                        </Icon>
+                      </TableCell>
+                    </TableRow>
+                  ),
+                )
               )}
             </TableBody>
           </MainTable>
-        )}
+          <Pagination
+            rowsPerPageOptions={[]}
+            component="div"
+            count={total}
+            rowsPerPage={rowsPerPage}
+            page={currentPage - 1}
+            onChangePage={this.handleChangePage}
+          />
+        </>
       </div>
     );
   }
 }
 const mapStateToProps = createStructuredSelector({
   patients: selectPatientList(),
+  loading: selectLoading(),
+  total: selectTotal(),
+  currentPage: selectCurrentPage(),
+  rowsPerPage: selectRowsPerPage(),
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPatientList: () => dispatch(getPatientList()),
+  getPatientList: page => dispatch(getPatientList(page)),
   deletePatient: id => dispatch(deletePatient(id)),
 });
 
 export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(PatientList);
-// export default connect(mapStateToProps, mapDispatchToProps)(PatientList);

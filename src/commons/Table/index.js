@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Table, TableCell, TableRow } from '@material-ui/core';
+import { Table, TableCell, TableRow, TablePagination } from '@material-ui/core';
+
 import theme from 'constants/theme';
 
 export const MainTable = styled(Table)`
@@ -53,6 +54,8 @@ export const ClickableTableRow = styled(TableRow)`
     background: var(--lightestGrey);
   }
 `;
+
+export const Pagination = styled(TablePagination)``
 
 type Props = {
   message: string,

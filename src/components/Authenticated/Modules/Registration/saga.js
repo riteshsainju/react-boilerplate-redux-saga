@@ -18,6 +18,7 @@ import {
   updatePatientFailure,
   deletePatientSuccess,
   deletePatientFailure,
+  getPatientList as getPatients,
 } from './actions';
 
 const API_BASE = process.env.REACT_APP_API_URL;
@@ -57,6 +58,7 @@ function* redirectOnSuccess(type) {
     const { data } = action;
     if (data) {
       toast.success('Patient Data Deleted Succesfully');
+      yield put(getPatients());
     }
   }
 }
@@ -100,8 +102,9 @@ function* redirectOnError(type) {
 function* getPatientList(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getPatientListSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getPatientListFailure');
-
-  yield fork(AppSaga.get(`${API_BASE}/registration`, getPatientListSuccess, getPatientListFailure, ''));
+  yield fork(
+    AppSaga.get(`${API_BASE}/registration/?page=${action.page}`, getPatientListSuccess, getPatientListFailure, ''),
+  );
 
   // yield fork(
   //   AppSaga.get('https://jsonplaceholder.typicode.com/users', getPatientListSuccess, getPatientListFailure, ''),

@@ -15,7 +15,6 @@ const DateField = props => {
     // handleDateChange(date);
     Date.parse(date) ? inputProps.onChange(dateFnsFormat(date, 'yyyy/MM/dd')) : inputProps.onChange(null);
   };
-
   return (
     <KeyboardDatePicker
       {...inputProps}

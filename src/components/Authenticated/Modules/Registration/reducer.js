@@ -8,6 +8,9 @@ const initialState = {
   success    : null,
   patientList: [],
   patientData: {},
+  currentPage: 1,
+  total      : 0,
+  rowsPerPage: 10,
 };
 
 const registrationReducer = (state = initialState, action) => {
@@ -29,7 +32,10 @@ const registrationReducer = (state = initialState, action) => {
       loading    : false,
       error      : null,
       success    : 'success',
-      patientList: action.data.data,
+      patientList: action.data.data.items,
+      currentPage: action.data.data.pagination.current_page,
+      total      : action.data.data.pagination.total,
+      rowsPerPage: action.data.data.pagination.per_page,
     };
   case CONS.GET_PATIENT_SUCCESS:
     return {

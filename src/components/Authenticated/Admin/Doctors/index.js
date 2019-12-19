@@ -1,28 +1,28 @@
 import React from 'react';
 import { PrimaryButton } from 'commons/Buttons';
-import { Container } from 'components/Authenticated/styled';
 import { PageHeader } from 'commons/Style';
+import { DOCTORS } from 'constants/routes'
 
-import GenericValuesList from './List';
+import DoctorList from './List';
 
 const App = ({ history }) => {
   const goto = path => {
     history.push(path);
   };
   return (
-    <Container>
-      <PageHeader>Generic Values</PageHeader>
+    <>
+      <PageHeader>Doctors</PageHeader>
       <PrimaryButton
         variant="contained"
         color="primary"
         onClick={() => {
-          goto('/generic-values/add');
+          goto(`${DOCTORS.ADD_DOCTOR}`);
         }}
       >
         Create
       </PrimaryButton>
-      <GenericValuesList />
-    </Container>
+      <DoctorList />
+    </>
   );
 };
 

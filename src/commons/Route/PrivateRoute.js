@@ -18,7 +18,6 @@ const PrivateRoute = ({ component: Component, render, ...rest }) => {
     }
     return typeof render === 'function' ? render(props) : <Component {...props} {...rest} />;
   };
-
   return <Route render={renderContent} />;
 };
 

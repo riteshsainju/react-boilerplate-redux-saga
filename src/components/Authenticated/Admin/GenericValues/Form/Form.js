@@ -6,8 +6,8 @@ import { TextField, SelectField } from 'commons/Forms/InputField';
 
 import { PrimaryButton, SecondaryButton } from 'commons/Buttons';
 import Row from 'commons/Forms/Row';
-import { Container } from 'components/Authenticated/styled';
 import { PageHeader } from 'commons/Style';
+import { GENERIC_VALUES } from 'constants/routes'
 import { FormWrapper } from '../styled';
 
 const GenericValues = ({ handleFormSubmit, handleSubmit, disabled, history, formType }) => {
@@ -16,7 +16,7 @@ const GenericValues = ({ handleFormSubmit, handleSubmit, disabled, history, form
     { value: 'district', label: 'District' },
   ];
   return (
-    <Container>
+    <>
       <PageHeader>{formType} Generic Values</PageHeader>
       <FormWrapper>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -41,7 +41,7 @@ const GenericValues = ({ handleFormSubmit, handleSubmit, disabled, history, form
             onClick={e => {
               e.stopPropagation();
 
-              history.push('/generic-values');
+              history.push(`${GENERIC_VALUES.GENERIC_VALUES_ROUTE}`);
             }}
             variant="contained"
           >
@@ -49,7 +49,7 @@ const GenericValues = ({ handleFormSubmit, handleSubmit, disabled, history, form
           </SecondaryButton>
         </form>
       </FormWrapper>
-    </Container>
+    </>
   );
 };
 

@@ -9,11 +9,12 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 
-import { MainTable, CenterEmptyTable } from 'commons/Table';
+import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
 import DeleteModal from 'commons/ModalStyle/deleteModal';
+import {GENERIC_VALUES}from 'constants/routes'
 import { isEmpty } from 'utils';
-import { selectGenericValuesList, selectLoading } from '../selectors';
+import { selectGenericValuesList, selectLoading,  selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
 import { getGenericValuesList, deleteGenericValues } from '../actions';
 import styles, { Icon } from '../styled';
 
@@ -27,7 +28,7 @@ class GenericValuesList extends Component {
   };
 
   componentDidMount() {
-    this.props.getGenericValuesList();
+    this.props.getGenericValuesList(0);
   }
 
   goto = url => {
@@ -47,13 +48,17 @@ class GenericValuesList extends Component {
     });
   };
 
+  handleChangePage = (event, newPage) => {
+    this.props.getGenericValuesList(1 + newPage);
+  };
+
   handleDelete = id => {
     this.props.deleteGenericValues(id);
     this.closeDialog();
   };
 
   render() {
-    const { genericValues, loading } = this.props;
+    const { genericValues, loading, currentPage, total, rowsPerPage  } = this.props;
     const { dialogOpen, selectedGenericValuesId } = this.state;
     return (
       <div>
@@ -79,13 +84,13 @@ class GenericValuesList extends Component {
               <CenterEmptyTable message={loading ? 'Loading...' : 'No data available'} />
             ) : (
               genericValues.map(({ id, type, title }, i) => (
-                <TableRow key={id} onClick={() => this.goto(`/generic-values/edit/${id}`)}>
+                <TableRow key={id} onClick={() => this.goto(`${GENERIC_VALUES.GENERIC_VALUES_ROUTE}/edit/${id}`)}>
                   <TableCell>{id}</TableCell>
                   <TableCell>{title} </TableCell>
                   <TableCell>{type}</TableCell>
                   <TableCell>
                     <Icon title="Edit">
-                      <EditIcon onClick={() => this.goto(`/generic-values/edit/${id}`)}></EditIcon>
+                      <EditIcon onClick={() => this.goto(`${GENERIC_VALUES.GENERIC_VALUES_ROUTE}/edit/${id}`)}></EditIcon>
                     </Icon>
                     <Icon title="Delete">
                       <DeleteIcon
@@ -101,6 +106,14 @@ class GenericValuesList extends Component {
             )}
           </TableBody>
         </MainTable>
+        <Pagination
+            rowsPerPageOptions={[]}
+            component="div"
+            count={total}
+            rowsPerPage={rowsPerPage}
+            page={currentPage - 1}
+            onChangePage={this.handleChangePage}
+          />
       </div>
     );
   }
@@ -108,10 +121,13 @@ class GenericValuesList extends Component {
 const mapStateToProps = createStructuredSelector({
   genericValues: selectGenericValuesList(),
   loading: selectLoading(),
+  total: selectTotal(),
+  currentPage: selectCurrentPage(),
+  rowsPerPage: selectRowsPerPage(),
 });
 
 const mapDispatchToProps = dispatch => ({
-  getGenericValuesList: () => dispatch(getGenericValuesList()),
+  getGenericValuesList: page => dispatch(getGenericValuesList(page)),
   deleteGenericValues: id => dispatch(deleteGenericValues(id)),
 });
 

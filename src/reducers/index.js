@@ -3,7 +3,9 @@ import { connectRouter } from 'connected-react-router';
 import { reducer as form } from 'redux-form';
 import registrationReducer from 'components/Authenticated/Modules/Registration/reducer';
 import authenticationReducer from 'components/Authentication/reducer';
-import genericValuesReducer from 'components/Authenticated/Settings/Admin/GenericValues/reducer';
+import genericValuesReducer from 'components/Authenticated/Admin/GenericValues/reducer';
+import doctorsReducer from 'components/Authenticated/Admin/Doctors/reducer';
+import employeesReducer from 'components/Authenticated/Admin/Employees/reducer';
 
 import usersReducer from './users';
 
@@ -15,6 +17,8 @@ const createRootReducer = history =>
     registrationReducer,
     authenticationReducer,
     genericValuesReducer,
+    doctorsReducer,
+    employeesReducer
   });
 
 export default createRootReducer;

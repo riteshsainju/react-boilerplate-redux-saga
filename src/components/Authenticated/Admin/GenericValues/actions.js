@@ -1,7 +1,7 @@
 import action from 'actions';
 import * as CONS from './constants';
 
-export const getGenericValuesList = action(CONS.GET_GENERICVALUESLIST, 'data');
+export const getGenericValuesList = action(CONS.GET_GENERICVALUESLIST, 'page');
 export const getGenericValuesListSuccess = action(CONS.GET_GENERICVALUESLIST_SUCCESS, 'data');
 export const getGenericValuesListFailure = action(CONS.GET_GENERICVALUESLIST_FAILURE, 'error');
 

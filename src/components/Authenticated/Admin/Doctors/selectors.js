@@ -1,3 +1,5 @@
+import { get } from 'lodash'
+
 export const selectDoctorList = () => state => {
   return state.doctorsReducer.doctorList;
 };
@@ -20,3 +22,8 @@ export const selectDoctorData = () => state => {
 export const selectLoading = () => state => {
   return state.doctorsReducer.loading;
 };
+
+export const selectDoctorFormValues = () => state => {
+  return get(state, 'form.doctorRegistrationForm.values') || {}
+};
+

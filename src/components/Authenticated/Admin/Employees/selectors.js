@@ -1,3 +1,5 @@
+import { get } from 'lodash'
+
 export const selectEmployeeList = () => state => {
   return state.employeesReducer.employeeList;
 };
@@ -19,4 +21,8 @@ export const selectEmployeeData = () => state => {
 
 export const selectLoading = () => state => {
   return state.employeesReducer.loading;
+};
+
+export const selectEmployeeFormValues = () => state => {
+  return get(state, 'form.employeeRegistrationForm.values') || {}
 };

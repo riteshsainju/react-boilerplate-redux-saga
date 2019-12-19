@@ -7,18 +7,18 @@ export const MenuWrapper = styled.div`
 `;
 export const MenuTab = styled.div`
   margin: 10px;
-  border: 1px solid ${theme.color.primary};
+  border: 1px solid ${theme.color.secondary};
   height: 200px;
   width: 250px;
-  background: ${theme.color.primaryLight};
+  background: ${theme.color.background.secondary};
   cursor: pointer;
   :hover {
-    border: 2px solid ${theme.color.primary};
+    border: 2px solid ${theme.color.secondary};
   }
 `;
 
 export const MenuText = styled.div`
-  color: ${theme.color.primary};
+  color: ${theme.color.text.secondary};
   font-size: 30px;
   vertical-align: middle;
   text-align: center;

@@ -9,7 +9,7 @@ import validate from 'utils/validate';
 import { isSubmitButtonDisabled } from 'utils';
 import RegistrationForm from './Form';
 import { addEmployee, getEmployee, updateEmployee, resetEmployeeForm } from '../actions';
-import { selectEmployeeData } from '../selectors';
+import { selectEmployeeData, selectEmployeeFormValues } from '../selectors';
 
 class EmployeeRegistration extends Component {
   componentDidMount() {
@@ -53,10 +53,9 @@ class EmployeeRegistration extends Component {
       computedMatch: {
         params: { id },
       },handleSubmit,
-      history
+      history,formValues,
 
     } = this.props;
-
     return (
       <RegistrationForm
         handleFormSubmit={this.handleFormSubmit}
@@ -64,6 +63,7 @@ class EmployeeRegistration extends Component {
         disabled={isSubmitButtonDisabled(this.props)}
         history={history}
         formType={id ? 'Edit' : 'New'}
+        formValues={formValues}
       />
     );
   }
@@ -95,6 +95,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = createStructuredSelector({
   initialValues: selectEmployeeData(),
+  formValues   : selectEmployeeFormValues(),
 });
 
 export default compose(

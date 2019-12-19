@@ -9,7 +9,7 @@ import validate from 'utils/validate';
 import { isSubmitButtonDisabled } from 'utils';
 import RegistrationForm from './Form';
 import { addDoctor, getDoctor, updateDoctor, resetDoctorForm } from '../actions';
-import { selectDoctorData } from '../selectors';
+import { selectDoctorData,selectDoctorFormValues } from '../selectors';
 
 class DoctorRegistration extends Component {
   componentDidMount() {
@@ -53,7 +53,7 @@ class DoctorRegistration extends Component {
       computedMatch: {
         params: { id },
       },handleSubmit,
-      history
+      history,formValues,
 
     } = this.props;
 
@@ -64,6 +64,7 @@ class DoctorRegistration extends Component {
         disabled={isSubmitButtonDisabled(this.props)}
         history={history}
         formType={id ? 'Edit' : 'Add'}
+        formValues={formValues}
       />
     );
   }
@@ -99,6 +100,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = createStructuredSelector({
   initialValues: selectDoctorData(),
+  formValues   : selectDoctorFormValues(),
+
 });
 
 export default compose(

@@ -27,7 +27,6 @@ const GenericValues = ({ handleFormSubmit, handleSubmit, disabled, history, form
               label="Field Type"
               component={SelectField}
               options={states}
-              css={{ width: '200px' }}
               required
             />
             <Row>

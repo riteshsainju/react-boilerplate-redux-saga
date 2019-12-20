@@ -89,7 +89,8 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                   label="Department"
                   component={SelectField}
                   options={departments}
-                  css={{ width: '200px' }}
+
+                  // css={{ width: '200px' }}
                   required
                 />
                 <Field
@@ -98,7 +99,6 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                   label="Specialization"
                   component={SelectField}
                   options={specializations}
-                  css={{ width: '200px' }}
                   required
                 /></Row>
                 <Row>
@@ -141,7 +141,6 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                     label="State"
                     component={SelectField}
                     options={states}
-                    css={{ width: '200px' }}
                     required
                   />         
                   <Field name="home_twon_address" type="text" label="Address" component={TextField} required />
@@ -168,7 +167,6 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                     label="State"
                     component={SelectField}
                     options={states}
-                    css={{ width: '200px' }}
                     required
                   />
                   <Field name="office_address" type="text" label="Address" component={TextField} required />

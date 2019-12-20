@@ -1,84 +1,86 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+
+import { TextField } from '@material-ui/core';
 import styled from 'styled-components';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-const ErrorText = styled(FormHelperText)`
+const CustomTextField = styled(TextField)`
   && {
-    color: #f44336;
+    ${({ textAreaBorder }) =>
+    textAreaBorder
+      ? `
+
+    label {
+      top: 5px !important;
+      left: 5px !important;
+    }
+
+    textarea {
+      border: 1px solid var(--lightGrey);
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    & > div {
+      &::before {
+        display:none;
+      }
+      &::after {
+        display:none;
+      }
+    }
+
+    & > div:hover {
+      &::before {
+        display:none;
+      }
+    }
+    `
+      : `
+    & > div:hover {
+      &::before {
+        border-bottom: 2px solid #d3d3d3 !important;
+      }
+    }`};
   }
 `;
 
-const CustomInput = styled(Input)`
-  &&:hover::before {
-    border-bottom: 2px solid #d3d3d3 !important;
-  }
-`;
+const GPasswordField = ({ input, placeholder, label, shrink, rows, style, meta: { touched, error }, ...rest }) => {
+  const [showPassword, setShowPassword] = useState(false);
 
-class GPasswordField extends Component {
-  constructor() {
-    super();
-    this.state = {
-      showPassword: false,
-    };
-  }
-
-  handleMouseDownPassword = event => {
-    event.preventDefault();
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)
   };
-
-  handleClickShowPassword = () => {
-    const { showPassword } = this.state;
-    this.setState({ showPassword: !showPassword });
+  const colorOnError = {
+    color: !!(touched && error) && '#f44336',
   };
-
-  render() {
-    const { showPassword } = this.state;
-    const {
-      input,
-      label,
-      required,
-      meta: { touched, error },
-      ...rest
-    } = this.props;
-    const colorOnError = {
-      color: !!(touched && error) && '#f44336',
-    };
-    return (
-      <>
-        <FormControl>
-          <InputLabel htmlFor={input.id} style={colorOnError}>
-            {label}
-          </InputLabel>
-          <CustomInput
-            error={!!(touched && error)}
-            {...input}
-            {...rest}
-            type={showPassword ? 'text' : 'password'}
-            required
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="Toggle password visibility"
-                  onClick={this.handleClickShowPassword}
-                  onMouseDown={this.handleMouseDownPassword}
-                >
-                  {showPassword ? <Visibility style={colorOnError} /> : <VisibilityOff style={colorOnError} />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <ErrorText>{touched && error}</ErrorText>
-        </FormControl>
-      </>
-    );
-  }
-}
+  return (
+    <CustomTextField
+      label={label}
+      rows={rows}
+      style={style}
+      InputLabelProps={{
+        shrink,
+      }}
+      helperText={touched && error}
+      error={!!(touched && error)}
+      {...input}
+      {...rest}
+      placeholder={placeholder}
+      type={showPassword ? 'text' : 'password'}
+      variant="outlined"
+      InputProps={{
+        endAdornment: <InputAdornment position="end">    <IconButton
+          onClick={handleClickShowPassword}
+        >
+          {showPassword ? <Visibility /> : <VisibilityOff style={colorOnError} />}
+        </IconButton></InputAdornment>
+      }}
+    />
+  )
+};
 
 export default GPasswordField;

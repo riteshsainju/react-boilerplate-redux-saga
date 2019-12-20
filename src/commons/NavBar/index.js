@@ -2,13 +2,21 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import InputBase from '@material-ui/core/InputBase';
+import { cookieJar } from 'utils';
 import theme from 'constants/theme';
-import Button from '@material-ui/core/Button';
+import avatar from 'assets/images/doctor.png'
 
 // import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
-import { cookieJar } from 'utils';
-import { Logo } from './styled'
+import Dropdown from 'commons/DropDown'
+import { Logo ,
+  Menu,
+  ProfileDropdown,
+  Avatar,
+  SearchBar,
+} from './styled'
+
 
 const Navbar = ({ history }) => {
   return (
@@ -22,16 +30,37 @@ const Navbar = ({ history }) => {
           onClick={() => {
             history.push('/dashboard');
           }} />
-        <Button
-          color="inherit"
-          style={{ float: 'right',color: `${theme.color.text.secondary}` }}
-          onClick={() => {
-            cookieJar.clearAll();
-            history.push('/auth/login');
-          }}
-        >
-          Log Out
-        </Button>
+        <SearchBar >
+          <InputBase
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </SearchBar>
+        <Menu right>
+          <Dropdown
+            target={() => (
+              <ProfileDropdown>
+                <Avatar src={avatar} alt="profile" />
+              </ProfileDropdown>
+            )}
+            isSearchable={false}
+            options={[
+              {
+                id   : 1,
+                label: 'Settings',
+              },
+
+              {
+                id     : 3,
+                label  : 'Logout',
+                onClick: () => {
+                  cookieJar.clearAll();
+                  history.push('/auth/login');
+                }
+              },
+            ]}
+          />
+        </Menu>
       </Toolbar>
     </AppBar>
   );

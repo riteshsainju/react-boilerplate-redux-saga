@@ -80,7 +80,6 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
                 label="State"
                 component={SelectField}
                 options={states}
-                css={{ width: '200px' }}
                 required
               />
               <Label>District*</Label>
@@ -90,9 +89,8 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
                 label="District"
                 component={SelectField}
                 options={districts}
-                css={{ width: '200px' }}
                 required
-              />{' '}
+              />
             </Row>
             <Row>
               <Label>Municipality*</Label>

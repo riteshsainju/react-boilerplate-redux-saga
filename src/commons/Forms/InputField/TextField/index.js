@@ -56,6 +56,7 @@ const GTextField = ({ input, placeholder, label, shrink, rows, style, meta: { to
     {...input}
     {...rest}
     placeholder={placeholder}
+    variant="outlined"
   />
 );
 

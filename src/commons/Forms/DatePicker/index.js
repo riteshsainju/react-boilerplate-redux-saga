@@ -23,6 +23,7 @@ const DateField = props => {
       disabled={submitting}
       value={value ? new Date(value) : null}
       onChange={date => onChange(date)}
+      inputVariant="outlined"
     />
   );
 };

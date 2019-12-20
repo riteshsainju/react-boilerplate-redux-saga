@@ -15,6 +15,10 @@ class Login extends Component {
     this.props.login(values);
   };
 
+  goto = path => {
+    this.props.history.push(path);
+  };
+
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -22,6 +26,7 @@ class Login extends Component {
         handleFormSubmit={this.handleFormSubmit}
         handleSubmit={handleSubmit}
         disabled={isSubmitButtonDisabled(this.props)}
+        goto={this.goto}
       />
     );
   }

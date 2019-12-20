@@ -9,7 +9,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import PersonIcon from '@material-ui/icons/Person';
 import { Container, HeaderText, ButtonWrapper, Logo, FormWrapper,TextBoxIcon,Lock, LoginButton,BottomText } from '../styled';
 
-const LoginForm = ({ handleFormSubmit, handleSubmit, disabled }) => {
+const LoginForm = ({ handleFormSubmit, handleSubmit, disabled, goto }) => {
   return (
     <Container>
       <Logo />
@@ -40,7 +40,7 @@ const LoginForm = ({ handleFormSubmit, handleSubmit, disabled }) => {
             </LoginButton>
           </ButtonWrapper>
         </form>
-        <BottomText>Forget Password?</BottomText>
+        <BottomText onClick={()=>goto('/auth/forgot-password')}>Forget Password?</BottomText>
       </FormWrapper>
     </Container>
 

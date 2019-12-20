@@ -7,7 +7,7 @@ import theme from 'constants/theme';
 export const Container = styled.div`
   position: absolute;
   left: 50%;
-  top: 35%;
+  top: 40%;
   transform: translate(-50%, -50%);
 
 `;

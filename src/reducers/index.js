@@ -6,8 +6,7 @@ import authenticationReducer from 'components/Authentication/reducer';
 import genericValuesReducer from 'components/Authenticated/Admin/GenericValues/reducer';
 import doctorsReducer from 'components/Authenticated/Admin/Doctors/reducer';
 import employeesReducer from 'components/Authenticated/Admin/Employees/reducer';
-
-import usersReducer from './users';
+import usersReducer from 'components/Authenticated/Admin/Users/reducer';
 
 const createRootReducer = history =>
   combineReducers({

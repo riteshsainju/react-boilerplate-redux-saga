@@ -5,6 +5,7 @@ export const ADMIN_PATH = '/admin'
 const EMPLOYEES_PATH = `${ADMIN_PATH}/employees`
 const GENERIC_VALUES_PATH = `${ADMIN_PATH}/generic-values`
 const DOCTORS_PATH = `${ADMIN_PATH}/doctors`
+const USERS_PATH = `${ADMIN_PATH}/users`
 
 export const EMPLOYEES = {
   EMPLOYEES_ROUTE: EMPLOYEES_PATH,
@@ -22,3 +23,8 @@ export const DOCTORS = {
   ADD_DOCTOR   : `${DOCTORS_PATH}/new`,
   EDIT_DOCTOR  : `${DOCTORS_PATH}/edit/:id`,
 }
+
+export const USERS = {
+  USERS_ROUTE: USERS_PATH,
+}
+

@@ -14,6 +14,7 @@ import authenticationSaga from 'components/Authentication/saga';
 import genericValuesSaga from 'components/Authenticated/Admin/GenericValues/saga';
 import doctorsSaga from 'components/Authenticated/Admin/Doctors/saga';
 import employeesSaga from 'components/Authenticated/Admin/Employees/saga';
+import usersSaga from 'components/Authenticated/Admin/Users/saga';
 
 // import { checkAuth } from 'Components/Authenticated/action';
 // import { cookieJar, isEmpty } from 'utils';
@@ -123,7 +124,12 @@ export class AppSaga {
 }
 
 function* appSaga() {
-  yield all([fork(registrationSaga), fork(authenticationSaga), fork(genericValuesSaga), fork(employeesSaga),fork(doctorsSaga)]);
+  yield all([fork(registrationSaga), 
+    fork(authenticationSaga), 
+    fork(genericValuesSaga), 
+    fork(employeesSaga),
+    fork(doctorsSaga),
+    fork(usersSaga)]);
 }
 
 export default appSaga;

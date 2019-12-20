@@ -5,9 +5,8 @@ export default {
     primary     : '#3f51b5',
     secondary   : 'lightgray',
     primaryLight: 'lightgray',
-    text        : {
-      primary     : '#314252',
-      primaryLight: 'rgba(49, 66, 82, 0.5)',
+    background  : {
+      primary: '#f7f7f7',
     },
     button: {
       primary  : '#449DD1',
@@ -28,5 +27,9 @@ export default {
       primary  : '#449DD1',
       secondary: 'lightgray',
     },
+    text: {
+      primary  : '101010',
+      secondary: '#444445'
+    }
   },
 };

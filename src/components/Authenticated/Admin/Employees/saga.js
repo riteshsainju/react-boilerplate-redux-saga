@@ -24,7 +24,6 @@ import {
 
 const API_BASE = process.env.REACT_APP_API_URL;
 function* redirectOnSuccess(type) {
-  debugger
   if (type === 'getEmployeeListSuccess') {
     const action = yield take(CONS.GET_EMPLOYEELIST_SUCCESS);
     const { data } = action;

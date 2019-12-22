@@ -40,8 +40,9 @@ const selectStyles = (width, controlStyles, right) => ({
     color       : theme.color.text.secondary,
     cursor      : 'pointer',
     '&:hover'   : {
-      background: theme.color.primary,
-      color     : theme.color.white,
+      background: theme.color.lightgray,
+
+      // color     : theme.color.white,
     },
   }),
 })

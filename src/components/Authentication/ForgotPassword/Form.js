@@ -5,7 +5,7 @@ import { TextField } from 'commons/Forms/InputField';
 import Row from 'commons/Forms/Row';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PersonIcon from '@material-ui/icons/Person';
-import { Container, HeaderText, ButtonWrapper, Logo, FormWrapper,TextBoxIcon,Lock, LoginButton } from '../styled';
+import { Container, HeaderText, ButtonWrapper, Logo, FormWrapper,TextBoxIcon,Lock, LoginButton, FooterText, PrimaryColorText, CopyRightIcon } from '../styled';
 
 const ForgotPasswordForm = ({ handleFormSubmit, handleSubmit, disabled, goto }) => {
   return (
@@ -33,6 +33,7 @@ const ForgotPasswordForm = ({ handleFormSubmit, handleSubmit, disabled, goto }) 
           </ButtonWrapper>
         </form>
       </FormWrapper>
+      <FooterText>Copyright<CopyRightIcon /><PrimaryColorText>BalajuCityHospital</PrimaryColorText></FooterText>
     </Container>
 
   );

@@ -99,7 +99,6 @@ class UserList extends Component {
                 <TableCell>Department</TableCell>
                 <TableCell>Mobile Number</TableCell>
                 {/* <TableCell>Action</TableCell> */}
-                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>

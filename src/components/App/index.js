@@ -2,7 +2,7 @@ import React from 'react';
 
 // import { Provider } from 'react-redux';
 // import { ConnectedRouter } from 'connected-react-router';
-import { withRouter, Switch, Redirect } from 'react-router-dom';
+import { withRouter, Switch, Redirect,Route } from 'react-router-dom';
 
 // import store, { history } from 'store';
 import DateFnsUtils from '@date-io/date-fns';
@@ -15,15 +15,25 @@ import Registration from 'components/Authenticated/Modules/Registration';
 import AddPatient from 'components/Authenticated/Modules/Registration/Form';
 import Authentication from 'components/Authentication';
 import Admin from 'components/Authenticated/Admin';
+import PageNotFound from 'components/Authenticated/PageNotFound';
 
 import Navbar from 'commons/NavBar';
+import Sidebar from 'commons/SideBar';
 import { isLogin } from 'utils';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import getSidebarItems from 'components/Authenticated/sideBarItems'
 
 const showNav = authPage => {
   if (!authPage && isLogin()) {
     return <Navbar />;
+  }
+  return <></>;
+};
+
+const showSidebar = authPage => {
+  if (!authPage && isLogin()) {
+    return <Sidebar sideBarItems={getSidebarItems()} />
   }
   return <></>;
 };
@@ -35,6 +45,7 @@ const App = ({ location }) => {
       {/* <ConnectedRouter history={history}> */}
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         {showNav(isAuthenticationPage)}
+        {showSidebar(isAuthenticationPage)}
         <Switch>
           <Redirect exact from="/" to="/dashboard" />
           <PublicRoute path="/auth" component={Authentication} />
@@ -44,6 +55,7 @@ const App = ({ location }) => {
           <PrivateRoute path="/registration/edit-patient/:id" component={AddPatient} />
           <PrivateRoute path="/home" component={Home} />
           <PrivateRoute path="/admin" component={Admin} />
+          <Route component={PageNotFound} />
         </Switch>
       </MuiPickersUtilsProvider>
       <ToastContainer

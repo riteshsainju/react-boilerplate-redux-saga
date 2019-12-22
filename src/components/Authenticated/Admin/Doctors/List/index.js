@@ -12,13 +12,12 @@ import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
 import DeleteModal from 'commons/ModalStyle/deleteModal';
-import { isEmpty } from 'utils';
-
-// import DeleteDoctor from './deleteModal';
-import { selectDoctorList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
-import { getDoctorList, deleteDoctor } from '../actions';
 import { Icon } from 'commons/Style/FormStyle';
 import { DOCTORS } from 'constants/routes'
+import { isEmpty } from 'utils';
+
+import { selectDoctorList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
+import { getDoctorList, deleteDoctor } from '../actions';
 
 class DoctorList extends Component {
   constructor(props) {
@@ -103,7 +102,6 @@ class DoctorList extends Component {
                 <TableCell>Department</TableCell>
                 <TableCell>Degree</TableCell>
                 <TableCell>Action</TableCell>
-                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -120,7 +118,6 @@ class DoctorList extends Component {
                       specialization,
                       department,
                       degree,
-                      mobile_number
                     },
                     i,
                   ) => (
@@ -131,7 +128,6 @@ class DoctorList extends Component {
                       <TableCell>{this.getLabel(this.specializations,specialization)}</TableCell>
                       <TableCell>{this.getLabel(this.departments,department)}</TableCell>
                       <TableCell>{degree}</TableCell>
-                      <TableCell>{mobile_number}</TableCell>
                       <TableCell>
                         <Icon title="Edit">
                           <EditIcon onClick={() => this.goto(`${DOCTORS.DOCTORS_ROUTE}/edit/${id}`)}></EditIcon>

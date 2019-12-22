@@ -12,6 +12,7 @@ import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
 import DeleteModal from 'commons/ModalStyle/deleteModal';
+import {ActionButton} from 'commons/Buttons'
 import { isEmpty } from 'utils';
 
 // import DeletePatient from './deleteModal';
@@ -63,7 +64,7 @@ class PatientList extends Component {
     const { patients, loading, currentPage, total, rowsPerPage } = this.props;
     const { dialogOpen, selectedPatientId } = this.state;
     return (
-      <div style={styles.container}>
+      <div>
         <PopUp disableAutoFocus open={dialogOpen} onClose={this.closeDialog}>
           <DeleteModal
             id={selectedPatientId}
@@ -85,7 +86,6 @@ class PatientList extends Component {
                 <TableCell>Mobile Number</TableCell>
                 <TableCell>Admission Date</TableCell>
                 <TableCell>Action</TableCell>
-                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -122,7 +122,7 @@ class PatientList extends Component {
                       <TableCell>{created_at.split(' ')[0]}</TableCell>
                       <TableCell>
                         <Icon title="Edit">
-                          <EditIcon onClick={() => this.goto(`/registration/edit-patient/${id}`)}></EditIcon>
+                          {/* <EditIcon onClick={() => this.goto(`/registration/edit-patient/${id}`)}></EditIcon>
                         </Icon>
                         <Icon title="Delete">
                           <DeleteIcon
@@ -131,6 +131,14 @@ class PatientList extends Component {
                               this.openDialog(id);
                             }}
                           ></DeleteIcon>
+                        </Icon> */}
+                          <ActionButton onClick={() => this.goto(`/registration/edit-patient/${id}`)}>Edit</ActionButton>
+                          <ActionButton delete
+                            onClick={event => {
+                              event.stopPropagation();
+                              this.openDialog(id);
+                            }}
+                          >Delete</ActionButton>
                         </Icon>
                       </TableCell>
                     </TableRow>

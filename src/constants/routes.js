@@ -1,6 +1,10 @@
 export const SETTINGS = {
   DEF: '/settings',  
 }
+
+export const DASHBOARD_PATH = '/dashboard'
+export const PATIENT_REGISTRATION_PATH = '/registration'
+
 export const ADMIN_PATH = '/admin'
 const EMPLOYEES_PATH = `${ADMIN_PATH}/employees`
 const GENERIC_VALUES_PATH = `${ADMIN_PATH}/generic-values`

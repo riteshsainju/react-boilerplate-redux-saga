@@ -7,10 +7,8 @@ import { TextField, SelectField } from 'commons/Forms/InputField';
 import { DateField } from 'commons/Forms';
 import Checkbox from 'commons/Forms/Checkbox';
 import Radio from 'commons/Forms/Radio';
-
 import { PrimaryButton } from 'commons/Buttons';
 import Row from 'commons/Forms/Row';
-import { Container } from 'components/Authenticated/styled';
 import { PageHeader } from 'commons/Style';
 import { GExpansionPanel as ExpansionPanel ,GExpansionPanelDetails as ExpansionPanelDetails,GExpansionPanelSummary as ExpansionPanelSummary } from 'commons/Panels'
 import { Label, FormWrapper, SubFormWrapper } from '../styled';
@@ -46,7 +44,7 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
 
 
   return (
-    <Container>
+    <>
       <PageHeader>{formType} Patient</PageHeader>
       <FormWrapper>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -162,7 +160,7 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
           </PrimaryButton> */}
         </form>
       </FormWrapper>
-    </Container>
+    </>
   );
 };
 

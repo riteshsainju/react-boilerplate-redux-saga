@@ -1,4 +1,4 @@
-import { DASHBOARD_PATH, EMPLOYEES, DOCTORS, GENERIC_VALUES, PATIENT_REGISTRATION_PATH, USERS } from 'constants/routes'
+import { DASHBOARD_PATH, EMPLOYEES, DOCTORS, GENERIC_VALUES, PATIENTS, USERS } from 'constants/routes'
 
 const SideBarItems = () => [
   {
@@ -7,7 +7,7 @@ const SideBarItems = () => [
   },
   {
     name: 'Paitients',
-    link: PATIENT_REGISTRATION_PATH
+    link: PATIENTS.PATIENTS_ROUTE,
   },
   {
     name : 'Admin',

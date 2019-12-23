@@ -19,13 +19,17 @@ export const MainTable = styled(Table)`
         line-height: 17px;
         margin-top: 0px;
         border-bottom: 2px solid #d7d7d7;
+        background:${theme.color.grid.primary}
+        color:${theme.color.white};
       }
     }
     tbody {
+      border-bottom:1px solid ${theme.color.grid.secondary};
       td {
         padding: 10px;
         font-size: 14px;
-        line-height: 17px;
+        line-height: 10px;
+        border-bottom:none
       }
       padding: 13px;
       tr {
@@ -73,4 +77,22 @@ export const EmptyTable = ({ message }: Props) => <EmptyTableInfo>{message || ' 
 
 export const ActionCell = styled(TableCell)`
   width: 50px;
+`;
+
+export const TableHeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+`;
+
+export const TableHeader = styled.div`
+  padding: 5px 0;
+  font-size: 20px;
+  color: ${theme.color.text.primary};
+`;
+
+export const TableWrapper = styled.div`
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  padding:10px 20px;
+  margin-bottom: 20px
 `;

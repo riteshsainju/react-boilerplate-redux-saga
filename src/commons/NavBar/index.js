@@ -26,7 +26,7 @@ const Navbar = ({ history }) => {
           <MenuIcon />
         </IconButton> */}
         <Logo
-          style={{ flexGrow: 1, cursor: 'pointer' }}
+          style={{ width: '185px', cursor: 'pointer' }}
           onClick={() => {
             history.push('/dashboard');
           }} />

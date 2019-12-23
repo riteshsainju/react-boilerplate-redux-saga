@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import LogoIcon from 'assets/icons/logo.svg';
 import LockIcon from '@material-ui/icons/Lock';
+import CopyrightIcon from '@material-ui/icons/Copyright';
 import { PrimaryButton } from 'commons/Buttons';
 import theme from 'constants/theme';
 
@@ -58,3 +59,15 @@ export const BottomText = styled.div`
   padding: 10px 0 0 0;
   cursor:pointer;
   ;`
+
+export const FooterText= styled.p`
+  text-align:center;
+  font-size:11px;
+  padding-top: 20px;
+  `
+export const PrimaryColorText= styled.span`
+    color:${theme.color.primary}
+  `
+export const CopyRightIcon =styled(CopyrightIcon)`
+  &&{font-size: 11px;
+  padding: 0 1px;}`

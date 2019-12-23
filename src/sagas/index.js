@@ -17,8 +17,9 @@ import employeesSaga from 'components/Authenticated/Admin/Employees/saga';
 import usersSaga from 'components/Authenticated/Admin/Users/saga';
 
 // import { checkAuth } from 'Components/Authenticated/action';
-// import { cookieJar, isEmpty } from 'utils';
-import { isEmpty } from 'utils';
+import { cookieJar, isEmpty } from 'utils';
+
+// import { isEmpty } from 'utils';
 
 export class AppSaga {
   /**
@@ -26,14 +27,14 @@ export class AppSaga {
    */
 
   static getHeaders() {
-    let sessionValue;
-
-    // debugger;
-    // sessionValue = cookieJar.getHeader();
+    const sessionValue = cookieJar.getHeader();
     if (isEmpty(sessionValue)) {
-      sessionValue = { 'Content-Type': 'application/json' };
+      return ({ 'Content-Type': 'application/json' });
     }
-    return sessionValue;
+    return ({
+      'Authorization': `Bearer ${ sessionValue.access_token}`,
+      'Content-Type' : 'application/json' 
+    });
   }
 
   static getOptions(type, data) {

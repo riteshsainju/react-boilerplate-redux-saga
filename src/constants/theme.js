@@ -2,9 +2,10 @@ export default {
   color: {
     white       : '#ffffff',
     black       : '#000000',
-    primary     : '#3f51b5',
+    primary     : '#1078BA',
     secondary   : 'lightgray',
     primaryLight: 'lightgray',
+    lightgray   : 'lightgray',
     background  : {
       primary: '#f7f7f7',
     },
@@ -20,7 +21,7 @@ export default {
       background: '#f7f7f7',
     },
     grid: {
-      primary  : '#3f51b5',
+      primary  : '#1078BA',
       secondary: 'lightgray',
     },
     border: {
@@ -28,8 +29,12 @@ export default {
       secondary: 'lightgray',
     },
     text: {
-      primary  : '101010',
+      primary  : '#101010',
       secondary: '#444445'
+    },
+    sidebar: {
+      primary  : '#1078BA',
+      secondary: '#449DD1'
     }
   },
 };

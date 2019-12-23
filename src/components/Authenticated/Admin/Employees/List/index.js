@@ -94,9 +94,8 @@ class EmployeeList extends Component {
                 <TableCell>Name</TableCell>
                 <TableCell>Address</TableCell>
                 <TableCell>Department</TableCell>
-                   <TableCell>Mobile Number</TableCell>
+                <TableCell>Mobile Number</TableCell>
                 <TableCell>Action</TableCell>
-                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>

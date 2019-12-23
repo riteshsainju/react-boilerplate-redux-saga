@@ -17,3 +17,21 @@ export const SecondaryButton = styled(Button)`
     
   }
 `;
+
+export const ActionButton = styled(Button)`
+  && {
+    height: 22px;
+    padding: 2px;
+    font-size: 9px;
+    margin: 0 2px;
+    color: ${props => (props.delete? 'red' : 'orange')};
+    border: 1px solid ${props => (props.delete? 'red' : 'orange')};
+    :hover{
+      font-size: 10px;
+      border: 2px solid ${props => (props.delete? 'red' : 'orange')};
+      background:white
+    }
+      background:white
+  }
+`;
+

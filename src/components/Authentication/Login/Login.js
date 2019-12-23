@@ -7,7 +7,7 @@ import Checkbox from 'commons/Forms/Checkbox';
 import Row from 'commons/Forms/Row';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PersonIcon from '@material-ui/icons/Person';
-import { Container, HeaderText, ButtonWrapper, Logo, FormWrapper,TextBoxIcon,Lock, LoginButton,BottomText } from '../styled';
+import { Container, HeaderText, ButtonWrapper, Logo, FormWrapper,TextBoxIcon,Lock, LoginButton,BottomText,FooterText, PrimaryColorText, CopyRightIcon } from '../styled';
 
 const LoginForm = ({ handleFormSubmit, handleSubmit, disabled, goto }) => {
   return (
@@ -42,6 +42,7 @@ const LoginForm = ({ handleFormSubmit, handleSubmit, disabled, goto }) => {
         </form>
         <BottomText onClick={()=>goto('/auth/forgot-password')}>Forget Password?</BottomText>
       </FormWrapper>
+      <FooterText>Copyright<CopyRightIcon /><PrimaryColorText>BalajuCityHospital</PrimaryColorText></FooterText>
     </Container>
 
   );

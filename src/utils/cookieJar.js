@@ -51,4 +51,5 @@ export default {
   setSession,
   getSession,
   clearAll,
+  getHeader
 };

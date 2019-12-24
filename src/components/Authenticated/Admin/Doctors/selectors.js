@@ -4,6 +4,10 @@ export const selectDoctorList = () => state => {
   return state.doctorsReducer.doctorList;
 };
 
+export const selectAllDoctors = () => state => {
+  return state.doctorsReducer.allDoctors;
+};
+
 export const selectCurrentPage = () => state => {
   return state.doctorsReducer.currentPage;
 };

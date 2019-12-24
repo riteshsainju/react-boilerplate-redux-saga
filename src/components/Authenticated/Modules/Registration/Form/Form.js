@@ -11,9 +11,9 @@ import { PrimaryButton } from 'commons/Buttons';
 import Row from 'commons/Forms/Row';
 import { PageHeader } from 'commons/Style';
 import { GExpansionPanel as ExpansionPanel ,GExpansionPanelDetails as ExpansionPanelDetails,GExpansionPanelSummary as ExpansionPanelSummary } from 'commons/Panels'
-import { Label, FormWrapper, SubFormWrapper } from '../styled';
+import { FormWrapper, SubFormWrapper } from '../styled';
 
-const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formType }) => {
+const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formType, doctors }) => {
   const gender = [
     { key: 'male', label: 'Male' },
     { key: 'female', label: 'Female' },
@@ -42,6 +42,9 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
     setExpanded({ ...expanded,[panel]: (!expanded[panel]) });
   };
 
+  // const mapDropdownOptions = array =>{
+  //   return array.map(item=> ({ 'value': item.id, 'label': item.name }))
+  // }
 
   return (
     <>
@@ -57,16 +60,14 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
             <ExpansionPanelDetails>
               <SubFormWrapper>
                 <Row>
-                  <Label>Patient Name*</Label>
                   <Field name="first_name" type="text" label="First Name" component={TextField} required />
                   <Field name="middle_name" type="text" label="Middle Name" component={TextField} />
                   <Field name="last_name" type="text" label="Last Name" component={TextField} required />
                 </Row>
                 <Row>
-                  <Label>Gender*</Label>
                   <Field
                     id="gender"
-                    name="gender"
+                    name="gender*"
                     label="Gender"
                     className="input-field"
                     component={Radio}
@@ -76,11 +77,8 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
                   />
                 </Row>
                 <Row>
-                  <Label>Date of Birth*</Label>
-                  <Field name="date_of_birth" maxDate={new Date()} component={DateField} label="Date of Birth" required />
+                  <Field name="date_of_birth" maxDate={new Date()} component={DateField} label="Date of Birth*" required />
                   <Field name="estimated" component={Checkbox} label="Estimated" />
-                  {/* <Label>Birth Time</Label>
-              <Field name="time_of_birth" component={TimeField} label="Time" /> */}
                 </Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>
@@ -94,30 +92,24 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
             <ExpansionPanelDetails>
               <SubFormWrapper>
                 <Row>
-                  <Label>State*</Label>
                   <Field
                     name="state_id"
                     type="text"
-                    label="State"
+                    label="State*"
                     component={SelectField}
                     options={states}
-                    required
                   />
-                  <Label>District*</Label>
                   <Field
                     name="district_id"
                     type="text"
-                    label="District"
+                    label="District*"
                     component={SelectField}
                     options={districts}
-                    required
                   />
                 </Row>
                 <Row>
-                  <Label>Municipality*</Label>
-                  <Field name="municipality" type="text" label="Municipality" component={TextField} required />
-                  <Label>Ward*</Label>
-                  <Field name="ward" type="text" label="Ward" component={TextField} required />
+                  <Field name="municipality" type="text" label="Municipality*" component={TextField} required />
+                  <Field name="ward" type="text" label="Ward*" component={TextField} required />
                 </Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>
@@ -131,19 +123,19 @@ const Registration = ({ handleFormSubmit, handleSubmit, disabled, history, formT
             <ExpansionPanelDetails>
               <SubFormWrapper>
                 <Row>
-                  <Label>Mobile*</Label>
-                  <Field name="mobile_number" label="Mobile" component={TextField} required />
-                  <Label>Phone</Label>
+                  <Field name="mobile_number" label="Mobile*" component={TextField} required />
                   <Field name="phone_number" label="Phone" component={TextField} />
                 </Row>
                 <Row>
-                  <Label>Ocupation</Label>
-                  <Field name="occupation" type="text" label="Occupation" component={TextField} />
-                </Row>
-                <Row>
-                  <Label>Caste</Label>
-                  <Field name="caste" type="text" label="caste" component={TextField} />
-                </Row>
+                  <Field
+                    name="doctor"
+                    type="text"
+                    label="Doctor*"
+                    component={SelectField}
+                    options={doctors.map(item=> ({ 'value': item.id, 'label': `${item.first_name} ${ item.last_name}` }))}
+                    css={{ width: '50%' }}
+
+                  /></Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>
           </ExpansionPanel>

@@ -12,20 +12,23 @@ import validate from 'utils/validate';
 import { isSubmitButtonDisabled } from 'utils';
 import RegistrationForm from './Form';
 import { addNewPatient, getPatient, updatePatient, resetPatientForm } from '../actions';
+import {getAllDoctors} from '../../../Admin/Doctors/actions'
 import { selectPatientData } from '../selectors';
+import { selectAllDoctors } from '../../../Admin/Doctors/selectors';
 
 class PatientRegistration extends Component {
   componentDidMount() {
     const {
       computedMatch: {
         params: { id },
-      },
+      }, getAllDoctors
     } = this.props;
     if (id) {
       this.props.getPatient(id);
     } else {
       this.props.resetPatientForm();
     }
+    getAllDoctors()
   }
 
   removeNullValues = obj => {
@@ -51,9 +54,8 @@ class PatientRegistration extends Component {
     const {
       computedMatch: {
         params: { id },
-      },
+      },allDoctors,
     } = this.props;
-
     return (
       <RegistrationForm
         handleFormSubmit={this.handleFormSubmit}
@@ -61,6 +63,7 @@ class PatientRegistration extends Component {
         disabled={isSubmitButtonDisabled(this.props)}
         history={this.props.history}
         formType={id ? 'Edit' : 'New'}
+        doctors={allDoctors}
       />
     );
   }
@@ -83,19 +86,16 @@ const mapDispatchToProps = dispatch => ({
   getPatient: id => dispatch(getPatient(id)),
   updatePatient: data => dispatch(updatePatient(data)),
   resetPatientForm: () => dispatch(resetPatientForm()),
+  getAllDoctors: () => dispatch(getAllDoctors()),
 });
 
 const mapStateToProps = createStructuredSelector({
   initialValues: selectPatientData(),
+  allDoctors:selectAllDoctors(),
 });
 
 export default compose(
   withRouter,
-  // connect(() => {
-  //   return {
-  //     initialValues: { signup_access: 'no_access' },
-  //   };
-  // }),
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: 'registrationForm',

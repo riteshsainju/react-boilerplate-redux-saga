@@ -20,10 +20,19 @@ import {
   deleteDoctorSuccess,
   deleteDoctorFailure,
   getDoctorList,
+  getAllDoctorsSuccess,
+  getAllDoctorsFailure
 } from './actions';
 
 const API_BASE = process.env.REACT_APP_API_URL;
 function* redirectOnSuccess(type) {
+  if (type === 'getAllDoctorsSuccess') {
+    const action = yield take(CONS.GET_ALL_DOCTORS_SUCCESS);
+    const { data } = action;
+    if (data) {
+      console.log('al doctorsdata fetched successfully');
+    }
+  }
   if (type === 'getDoctorListSuccess') {
     const action = yield take(CONS.GET_DOCTORLIST_SUCCESS);
     const { data } = action;
@@ -65,6 +74,12 @@ function* redirectOnSuccess(type) {
 }
 
 function* redirectOnError(type) {
+  if (type === 'getAllDoctorsFailure') {
+    const action = yield take(CONS.GET_ALL_DOCTORS_FAILURE);
+    if (action.data) {
+      toast.error('Error Fetching data');
+    }
+  }
   if (type === 'getDoctorListFailure') {
     const action = yield take(CONS.GET_DOCTORLIST_FAILURE);
     if (action.data) {
@@ -111,6 +126,17 @@ function* getDoctors(action) {
   yield cancel(successWatcher);
 }
 
+function* getAllDoctors(action) {
+  const successWatcher = yield fork(redirectOnSuccess, 'getAllDoctorsSuccess');
+  const errorWatcher = yield fork(redirectOnError, 'getAllDoctorsFailure');
+  yield fork(
+    AppSaga.get(`${API_BASE}/doctor`, getAllDoctorsSuccess, getAllDoctorsFailure, ''),
+  );
+  yield take([LOCATION_CHANGE]);
+  yield cancel(errorWatcher);
+  yield cancel(successWatcher);
+}
+
 function* getDoctor(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getDoctorSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getDoctorFailure');
@@ -150,6 +176,7 @@ function* deleteDoctor(action) {
 }
 
 function* doctorsSaga() {
+  yield takeLatest(CONS.GET_ALL_DOCTORS, getAllDoctors);
   yield takeLatest(CONS.GET_DOCTORLIST, getDoctors);
   yield takeLatest(CONS.GET_DOCTOR, getDoctor);
   yield takeLatest(CONS.ADD_DOCTOR, addDoctor);

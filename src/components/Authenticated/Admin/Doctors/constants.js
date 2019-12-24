@@ -1,4 +1,8 @@
-const path = 'components/Authenticated/Modules/Registration';
+const path = 'components/Authenticated/Modules/Admin/rDoctors';
+
+export const GET_ALL_DOCTORS = `${path}/GET_ALL_DOCTORS`;
+export const GET_ALL_DOCTORS_SUCCESS = `${path}/GET_ALL_DOCTORS_SUCCESS`;
+export const GET_ALL_DOCTORS_FAILURE = `${path}/GET_ALL_DOCTORS_FAILURE`;
 
 export const GET_DOCTORLIST = `${path}/GET_DOCTORLIST`;
 export const GET_DOCTORLIST_SUCCESS = `${path}/GET_DOCTORLIST_SUCCESS`;

@@ -6,7 +6,8 @@ const initialState = {
   loading    : true,
   error      : null,
   success    : null,
-  doctorList : [],
+  doctorList : [], // get doctors per page
+  allDoctors : [], // get all doctors
   doctorData : {},
   currentPage: 1,
   total      : 0,
@@ -16,6 +17,7 @@ const initialState = {
 const doctorsReducer = (state = initialState, action) => {
   switch (action.type) {
   case CONS.GET_DOCTORLIST:
+  case CONS.GET_ALL_DOCTORS:
   case CONS.ADD_DOCTOR:
   case CONS.GET_DOCTOR:
   case CONS.UPDATE_DOCTOR:
@@ -25,6 +27,14 @@ const doctorsReducer = (state = initialState, action) => {
       loading: true,
       error  : null,
       success: 'fetching',
+    };
+  case CONS.GET_ALL_DOCTORS_SUCCESS:
+    return {
+      ...state,
+      loading   : false,
+      error     : null,
+      success   : 'success',
+      allDoctors: action.data.data.items,
     };
   case CONS.GET_DOCTORLIST_SUCCESS:
     return {
@@ -66,6 +76,7 @@ const doctorsReducer = (state = initialState, action) => {
       doctorList: updatedList.filter(item => item.id !== action.data.data.id),
     };
   case CONS.GET_DOCTORLIST_FAILURE:
+  case CONS.GET_ALL_DOCTORS_FAILURE:
   case CONS.GET_DOCTOR_FAILURE:
   case CONS.ADD_DOCTOR_FAILURE:
   case CONS.UPDATE_DOCTOR_FAILURE:

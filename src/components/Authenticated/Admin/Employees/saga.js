@@ -125,7 +125,6 @@ function* getEmployee(action) {
 function* addEmployee(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'addEmployeeSuccess');
   const errorWatcher = yield fork(redirectOnError, 'addEmployeeFailure');
-  
   yield fork(AppSaga.post(`${API_BASE}/employee`, addEmployeeSuccess, addEmployeeFailure, action.data));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);

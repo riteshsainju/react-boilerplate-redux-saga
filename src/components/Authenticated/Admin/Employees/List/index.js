@@ -15,7 +15,8 @@ import DeleteModal from 'commons/ModalStyle/deleteModal';
 import { isEmpty } from 'utils';
 import { EMPLOYEES } from 'constants/routes'
 
-// import DeleteEmployee from './deleteModal';
+import {getGenericValuesList} from 'components/Authenticated/Admin/GenericValues/actions'
+import { selectGenericValuesList } from 'components/Authenticated/Admin/GenericValues/selectors';
 import { selectEmployeeList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
 import { getEmployeeList, deleteEmployee } from '../actions';
 import { Icon } from '../styled';
@@ -31,6 +32,7 @@ class EmployeeList extends Component {
   };
 
   componentDidMount() {
+    this.props.getAllGenericValues(0)
     this.props.getEmployeeList(1);
   }
 
@@ -60,20 +62,14 @@ class EmployeeList extends Component {
     this.props.getEmployeeList(1 + newPage);
   };
 
-  departments = [
-    { value: '1', label: 'Emergency' },
-    { value: '2', label: 'Cardiology' },
-    { value: '3', label: 'Neurology' },
-    { value: '4', label: 'ICU' },
-  ];
-
   getLabel(array,val){
-    let filteredList = array.filter((item)=>item['value'] == val )
-      return filteredList[0].label
-      }
+    let mappedArray = array.map(item=> ({ 'value': item.id, 'label': item.title }))
+    let filteredList = mappedArray.filter((item)=>item['value'] == val )
+      return filteredList.length > 0 ?filteredList[0].label:""
+    }
 
   render() {
-    const { employees, loading, currentPage, total, rowsPerPage } = this.props;
+    const { employees, loading, currentPage, total, rowsPerPage,allGenericValues } = this.props;
     const { dialogOpen, selectedEmployeeId } = this.state;
     return (
       <div >
@@ -118,7 +114,7 @@ class EmployeeList extends Component {
                       <TableCell>{id}</TableCell>
                       <TableCell>{first_name} {last_name}</TableCell>
                       <TableCell>{home_twon_address}</TableCell>
-                      <TableCell>{this.getLabel(this.departments,department)}</TableCell>
+                      <TableCell>{this.getLabel(allGenericValues.filter((item)=>item.type === 'department'),department)}</TableCell>
                       <TableCell>{mobile_number}</TableCell>
                       <TableCell>
                         <Icon title="Edit">
@@ -158,11 +154,13 @@ const mapStateToProps = createStructuredSelector({
   total: selectTotal(),
   currentPage: selectCurrentPage(),
   rowsPerPage: selectRowsPerPage(),
+  allGenericValues: selectGenericValuesList()
 });
 
 const mapDispatchToProps = dispatch => ({
   getEmployeeList: page => dispatch(getEmployeeList(page)),
   deleteEmployee: id => dispatch(deleteEmployee(id)),
+  getAllGenericValues: page => dispatch(getGenericValuesList(page)),
 });
 
 export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(EmployeeList);

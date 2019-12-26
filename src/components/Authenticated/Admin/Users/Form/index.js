@@ -76,7 +76,6 @@ class UserForm extends Component {
   };
 
   handleCancel = () => {
-    console.log('hhhhhhh')
     this.props.handleClose()
   };
 

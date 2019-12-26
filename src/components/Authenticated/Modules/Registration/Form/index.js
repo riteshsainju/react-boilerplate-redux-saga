@@ -48,7 +48,6 @@ class PatientRegistration extends Component {
         params: { id },
       },
     } = this.props;
-    console.log(values,'values')
     if (id) {
       this.removeNullValues(values);
       this.props.updatePatient(values);
@@ -62,7 +61,6 @@ class PatientRegistration extends Component {
       },allDoctors,
       allGenericValues
     } = this.props;
-    console.log('allgenericValues',allGenericValues)
     return (
       <RegistrationForm
         handleFormSubmit={this.handleFormSubmit}

@@ -63,7 +63,8 @@ class PatientList extends Component {
 
   handleSearch =(e)=>{
     console.log(e,'search')
-    this.props.searchPatient(2);  }
+    // this.props.searchPatient(2);  
+  }
 
   render() {
     const { patients, loading, currentPage, total, rowsPerPage } = this.props;

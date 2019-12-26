@@ -1,13 +1,12 @@
 import React from 'react';
 import { FormControlLabel, Checkbox, FormControl, FormHelperText } from '@material-ui/core';
 
-const GCheckbox = ({ input, label, name, key, checked, onClick, meta: { touched, error }, ...rest }) => {
-  console.log(input.name,'name')
+const GCheckbox = ({ input, label, id,name, key, checked, onClick, meta: { touched, error }, ...rest }) => {
   return(
     <FormControl>
       <FormControlLabel
         control={<Checkbox 
-          id={input.id}
+          id={id}
           name={input.name}
 
           // checked={!!input.value} 

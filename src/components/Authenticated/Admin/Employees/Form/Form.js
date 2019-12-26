@@ -17,19 +17,13 @@ import { GExpansionPanel as ExpansionPanel ,GExpansionPanelDetails as ExpansionP
 
 // import { Roles } from 'components/Authenticated/Admin/constants'
 
-const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, formValues, selectedRoles, handleCheckbox, roles }) => {
+const Form = ({ handleFormSubmit, handleSubmit, disabled, formType, 
+  selectedRoles, handleCheckbox, roles, department }) => {
   const gender = [
     { key: 'male', label: 'Male' },
     { key: 'female', label: 'Female' },
     { key: 'other', label: 'Other' },
   ];
-  const departments = [
-    { value: '1', label: 'Emergency' },
-    { value: '2', label: 'Cardiology' },
-    { value: '3', label: 'Neurology' },
-    { value: '4', label: 'ICU' },
-  ];
-  
 
   const states = [
     { value: '1', label: 'Province 1' },
@@ -47,8 +41,6 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
   const handleChange = panel => (event, data) => {
     setExpanded({ ...expanded,[panel]: (!expanded[panel]) });
   };
-
-  console.log(roles,'roles')
   return (
     <>
       <PageHeader>{formType} Employee</PageHeader>
@@ -62,15 +54,15 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>          <SubFormWrapper>
               <Row>
-                <Field name="first_name" type="text" label="First Name" component={TextField} required />
+                <Field name="first_name" type="text" label="First Name*" component={TextField} />
                 <Field name="middle_name" type="text" label="Middle Name" component={TextField} />
-                <Field name="last_name" type="text" label="Last Name" component={TextField} required />
+                <Field name="last_name" type="text" label="Last Name*" component={TextField} />
               </Row>
               <Row>
                 <Field
                   id="gender"
                   name="gender"
-                  label="Gender"
+                  label="Gender*"
                   className="input-field"
                   component={Radio}
                   margin="normal"
@@ -79,16 +71,15 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                 />
               </Row>
               <Row>
-                <Field name="date_of_birth" maxDate={new Date()} component={DateField} label="Date of Birth" required />
+                <Field name="date_of_birth" maxDate={new Date()} component={DateField} label="Date of Birth*" />
               </Row>
               <Row>
                 <Field
                   name="department"
                   type="text"
-                  label="Department"
+                  label="Department*"
                   component={SelectField}
-                  options={departments}
-                  required
+                  options={department}
                 />
               </Row>
 
@@ -104,10 +95,10 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
             <ExpansionPanelDetails>
               <SubFormWrapper>
                 <Row>
-                  <Field name="email" label="Email" component={TextField} required />
+                  <Field name="email" label="Email*" component={TextField} />
                 </Row>
                 <Row>
-                  <Field name="mobile_number" label="Mobile" component={TextField} required />
+                  <Field name="mobile_number" label="Mobile*" component={TextField} />
                   <Field name="phone_number" label="Phone" component={TextField} />
                 </Row>
               </SubFormWrapper>
@@ -125,16 +116,15 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                   <Field
                     name="home_twon_state"
                     type="text"
-                    label="State"
+                    label="State*"
                     component={SelectField}
                     options={states}
-                    required
                   />
-                  <Field name="home_twon_address" type="text" label="Address" component={TextField} required />
+                  <Field name="home_twon_address" type="text" label="Address*" component={TextField} />
                 </Row>
                 <Row>
-                  <Field name="home_twon_city" type="text" label="City" component={TextField} required />
-                  <Field name="home_twon_country" type="text" label="Country" component={TextField} required />
+                  <Field name="home_twon_city" type="text" label="City*" component={TextField} />
+                  <Field name="home_twon_country" type="text" label="Country*" component={TextField} />
                 </Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>
@@ -154,13 +144,12 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                     label="State"
                     component={SelectField}
                     options={states}
-                    required
                   />
-                  <Field name="office_address" type="text" label="Address" component={TextField} required />
+                  <Field name="office_address" type="text" label="Address" component={TextField} />
                 </Row>
                 <Row>
-                  <Field name="office_city" type="text" label="City" component={TextField} required />
-                  <Field name="office_country" type="text" label="Country" component={TextField} required />
+                  <Field name="office_city" type="text" label="City" component={TextField} />
+                  <Field name="office_country" type="text" label="Country" component={TextField} />
                 </Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>
@@ -176,13 +165,13 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                 <p>Select Roles*</p>
                 <Row>
                   {roles.map(item => <Field
-                    id={item.id}
+                    id={item.id.toString()}
                     name={item.role_name}
                     label={humanize(item.role_name)}
                     component={Checkbox}
                     key={item.id}
                     onClick={handleCheckbox}
-                    checked={selectedRoles.includes(item.role_name)}
+                    checked={selectedRoles.includes(item.id.toString())}
                   />)}
                 </Row>
               </SubFormWrapper>

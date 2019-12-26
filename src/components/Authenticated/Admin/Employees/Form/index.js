@@ -12,8 +12,9 @@ import { getRoles } from 'components/Authenticated/actions';
 import { selectRoles } from 'components/Authenticated/selectors';
 import RegistrationForm from './Form';
 import { addEmployee, getEmployee, updateEmployee, resetEmployeeForm } from '../actions';
-
+import {getGenericValuesList} from 'components/Authenticated/Admin/GenericValues/actions'
 import { selectEmployeeData, selectEmployeeFormValues } from '../selectors';
+import { selectGenericValuesList } from 'components/Authenticated/Admin/GenericValues/selectors';
 
 class EmployeeRegistration extends Component {
   constructor(props) {
@@ -31,8 +32,10 @@ class EmployeeRegistration extends Component {
       getData,
       resetForm,
       getAllRoles,
+      getAllGenericValues
     } = this.props;
     getAllRoles();
+    getAllGenericValues(0);
     if (id) {
       getData(id);
     } else {
@@ -44,9 +47,10 @@ class EmployeeRegistration extends Component {
     const { selectedRoles } = this.state
     const { initialValues } = this.props
     if (prevProps.initialValues !== initialValues) {
+      debugger
       this.setState({
         selectedRoles: initialValues.roles
-          ? initialValues.roles
+          ? initialValues.roles.map(role=>role.toString())
           : selectedRoles })}
   }
 
@@ -60,7 +64,7 @@ class EmployeeRegistration extends Component {
 
   handleCheckbox = event => {
     const { selectedRoles } = this.state;
-    const item = event.target.name;
+    const item = event.target.id;
     const checkboxGroup = selectedRoles.includes(item) ? selectedRoles.filter(i => i !== item) : [...selectedRoles, item];
     this.setState({ selectedRoles: checkboxGroup });
   };
@@ -88,6 +92,7 @@ class EmployeeRegistration extends Component {
       history,
       formValues,
       roles,
+      allGenericValues
     } = this.props;
     const { selectedRoles } = this.state
     return (
@@ -101,6 +106,8 @@ class EmployeeRegistration extends Component {
         selectedRoles={selectedRoles}
         handleCheckbox={this.handleCheckbox}
         roles={roles}
+        genericValues={allGenericValues}
+        department={allGenericValues.filter((item)=>item.type === 'department')}
       />
     );
   }
@@ -124,13 +131,16 @@ const mapDispatchToProps = dispatch => ({
   getData    : id => dispatch(getEmployee(id)),
   updateData : data => dispatch(updateEmployee(data)),
   resetForm  : () => dispatch(resetEmployeeForm()),
-  getAllRoles: ()=>dispatch(getRoles())
+  getAllRoles: ()=>dispatch(getRoles()),
+  getAllGenericValues: page => dispatch(getGenericValuesList(page)),
+
 });
 
 const mapStateToProps = createStructuredSelector({
   initialValues: selectEmployeeData(),
   formValues   : selectEmployeeFormValues(),
-  roles        : selectRoles()
+  roles        : selectRoles(),
+  allGenericValues: selectGenericValuesList()
 });
 
 export default compose(

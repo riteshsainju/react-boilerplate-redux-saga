@@ -13,22 +13,26 @@ import { isSubmitButtonDisabled } from 'utils';
 import RegistrationForm from './Form';
 import { addNewPatient, getPatient, updatePatient, resetPatientForm } from '../actions';
 import {getAllDoctors} from '../../../Admin/Doctors/actions'
+import {getGenericValuesList} from '../../../Admin/GenericValues/actions'
 import { selectPatientData } from '../selectors';
 import { selectAllDoctors } from '../../../Admin/Doctors/selectors';
+import { selectGenericValuesList } from '../../../Admin/GenericValues/selectors';
 
 class PatientRegistration extends Component {
   componentDidMount() {
     const {
       computedMatch: {
         params: { id },
-      }, getAllDoctors
+      }, getAllDoctors,
+      getAllGenericValues,
     } = this.props;
     if (id) {
       this.props.getPatient(id);
     } else {
       this.props.resetPatientForm();
     }
-    getAllDoctors()
+    getAllGenericValues(0);
+    getAllDoctors();
   }
 
   removeNullValues = obj => {
@@ -44,6 +48,7 @@ class PatientRegistration extends Component {
         params: { id },
       },
     } = this.props;
+    console.log(values,'values')
     if (id) {
       this.removeNullValues(values);
       this.props.updatePatient(values);
@@ -55,7 +60,9 @@ class PatientRegistration extends Component {
       computedMatch: {
         params: { id },
       },allDoctors,
+      allGenericValues
     } = this.props;
+    console.log('allgenericValues',allGenericValues)
     return (
       <RegistrationForm
         handleFormSubmit={this.handleFormSubmit}
@@ -64,6 +71,11 @@ class PatientRegistration extends Component {
         history={this.props.history}
         formType={id ? 'Edit' : 'New'}
         doctors={allDoctors}
+        genericValues={allGenericValues}
+        visitTypes={allGenericValues.filter((item)=>item.type === 'patient_visit_type')}
+        status={allGenericValues.filter((item)=>item.type === 'patient_status')}
+        department={allGenericValues.filter((item)=>item.type === 'department')}
+
       />
     );
   }
@@ -79,6 +91,11 @@ const validateFields = {
   municipality: { required: true, label: 'Municipality' },
   mobile_number: { required: true, label: 'Mobile Number' },
   date_of_birth: { required: true, label: 'Date of Birth' },
+  doctor_id: { required: true, label: 'Doctor' },
+  visit_type: { required: true, label: 'Visit Type' },
+  status: { required: true, label: 'Patient Status' },
+  department: { required: true, label: 'Department Id' },
+  
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -87,11 +104,14 @@ const mapDispatchToProps = dispatch => ({
   updatePatient: data => dispatch(updatePatient(data)),
   resetPatientForm: () => dispatch(resetPatientForm()),
   getAllDoctors: () => dispatch(getAllDoctors()),
+  getAllGenericValues: page => dispatch(getGenericValuesList(page)),
+
 });
 
 const mapStateToProps = createStructuredSelector({
   initialValues: selectPatientData(),
   allDoctors:selectAllDoctors(),
+  allGenericValues: selectGenericValuesList()
 });
 
 export default compose(

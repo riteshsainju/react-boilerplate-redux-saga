@@ -10,6 +10,7 @@ import { requestJSON } from 'utils/request';
 import { all, fork, put, call } from 'redux-saga/effects';
 
 import registrationSaga from 'components/Authenticated/Modules/Registration/saga';
+import authenticatedSaga from 'components/Authenticated/saga';
 import authenticationSaga from 'components/Authentication/saga';
 import genericValuesSaga from 'components/Authenticated/Admin/GenericValues/saga';
 import doctorsSaga from 'components/Authenticated/Admin/Doctors/saga';
@@ -29,7 +30,7 @@ export class AppSaga {
   static getHeaders() {
     const sessionValue = cookieJar.getHeader();
     if (isEmpty(sessionValue)) {
-      return ({ 'Content-Type': 'application/json' });
+      return ({ 'Content-Type': 'application/json','Accept': 'application/json' });
     }
     return ({
       'Authorization': `Bearer ${ sessionValue.access_token}`,
@@ -125,7 +126,8 @@ export class AppSaga {
 }
 
 function* appSaga() {
-  yield all([fork(registrationSaga), 
+  yield all([fork(registrationSaga),
+    fork(authenticatedSaga), 
     fork(authenticationSaga), 
     fork(genericValuesSaga), 
     fork(employeesSaga),

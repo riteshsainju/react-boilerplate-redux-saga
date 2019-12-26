@@ -45,7 +45,7 @@ class DoctorRegistration extends Component {
     if (id) {
       this.removeNullValues(values);
       updateData(values);
-    } else addData(values);
+    } else addData({ ...values, password: 'test@123' });
   };
 
   render() {
@@ -83,10 +83,6 @@ const validateFields = {
   home_twon_state  : { required: true, label: 'State' },
   home_twon_city   : { required: true, label: 'City' },
   home_twon_country: { required: true, label: 'Country' },
-  office_country   : { required: true, label: 'Country' },
-  office_address   : { required: true, label: 'Address' },
-  office_state     : { required: true, label: 'State' },
-  office_city      : { required: true, label: 'City' },
   email            : { required: true, label: 'City' }
   
 };

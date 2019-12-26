@@ -12,8 +12,10 @@ import { FormWrapper } from '../styled';
 
 const GenericValues = ({ handleFormSubmit, handleSubmit, disabled, history, formType }) => {
   const states = [
-    { value: 'state', label: 'State' },
-    { value: 'district', label: 'District' },
+    { value: 'department', label: 'Department' },
+    { value: 'specialization', label: 'Specialization' },
+    { value: 'patient_status', label: 'Patient Status' },
+    { value: 'patient_visit_type', label: 'Patient Visit Type' },
   ];
   return (
     <>
@@ -27,10 +29,11 @@ const GenericValues = ({ handleFormSubmit, handleSubmit, disabled, history, form
               label="Field Type"
               component={SelectField}
               options={states}
+              css={{ width: '25%' }}
               required
             />
             <Row>
-              <Field name="title" type="text" label="Title" component={TextField} required />
+              <Field name="title" type="text" label="Title*" component={TextField} fullwidth />
             </Row>
           </Row>
           <PrimaryButton type="submit" disabled={disabled} variant="contained" color="primary">

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { reducer as form } from 'redux-form';
+import authenticatedReducer from 'components/Authenticated/reducer';
 import registrationReducer from 'components/Authenticated/Modules/Registration/reducer';
 import authenticationReducer from 'components/Authentication/reducer';
 import genericValuesReducer from 'components/Authenticated/Admin/GenericValues/reducer';
@@ -17,7 +18,8 @@ const createRootReducer = history =>
     authenticationReducer,
     genericValuesReducer,
     doctorsReducer,
-    employeesReducer
+    employeesReducer,
+    authenticatedReducer
   });
 
 export default createRootReducer;

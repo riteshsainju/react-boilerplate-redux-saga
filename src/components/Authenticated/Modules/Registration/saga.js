@@ -3,6 +3,7 @@ import { push } from 'connected-react-router';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { toast } from 'react-toastify';
 
+import { PATIENTS } from 'constants/routes'
 import { AppSaga } from 'sagas';
 
 // import { API_BASE } from 'constants';
@@ -42,7 +43,7 @@ function* redirectOnSuccess(type) {
     const { data } = action;
     if (data) {
       toast.success('Patient Data Saved Succesfully');
-      yield put(push('/registration'));
+      yield put(push(`${PATIENTS.PATIENTS_ROUTE}`));
     }
   }
   if (type === 'updatePatientSuccess') {
@@ -50,7 +51,7 @@ function* redirectOnSuccess(type) {
     const { data } = action;
     if (data) {
       toast.success('Patient Data Updated Succesfully');
-      yield put(push('/registration'));
+      yield put(push(`${PATIENTS.PATIENTS_ROUTE}`));
     }
   }
   if (type === 'deletePatientSuccess') {
@@ -105,11 +106,6 @@ function* getPatientList(action) {
   yield fork(
     AppSaga.get(`${API_BASE}/registration/?page=${action.page}`, getPatientListSuccess, getPatientListFailure, ''),
   );
-
-  // yield fork(
-  //   AppSaga.get('https://jsonplaceholder.typicode.com/users', getPatientListSuccess, getPatientListFailure, ''),
-  // );
-
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
   yield cancel(successWatcher);
@@ -153,12 +149,19 @@ function* deletePatient(action) {
   yield cancel(successWatcher);
 }
 
+function* searchPatient(action) {
+  yield fork(
+    AppSaga.get(`${API_BASE}/registration/?page=${action.data}`, getPatientListSuccess, getPatientListFailure, ''),
+  );
+}
+
 function* registrationSaga() {
   yield takeLatest(CONS.GET_PATIENTLIST, getPatientList);
   yield takeLatest(CONS.GET_PATIENT, getPatient);
   yield takeLatest(CONS.ADD_NEW_PATIENT, addNewPatient);
   yield takeLatest(CONS.UPDATE_PATIENT, updatePatient);
   yield takeLatest(CONS.DELETE_PATIENT, deletePatient);
+  yield takeLatest(CONS.SEARCH_PATIENT, searchPatient);
 }
 
 export default registrationSaga;

@@ -103,7 +103,7 @@ function* redirectOnError(type) {
 function* getGenericValuesList(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getGenericValuesListSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getGenericValuesListFailure');
-
+  console.log(action.page,'page')
   yield fork(AppSaga.get(`${API_BASE}/generic/?page=${action.page}`, getGenericValuesListSuccess, getGenericValuesListFailure, ''));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);

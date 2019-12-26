@@ -3,6 +3,7 @@ import PropTypes, { bool } from 'prop-types';
 import { Field } from 'redux-form';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { humanize } from 'utils'
 import { TextField, SelectField } from 'commons/Forms/InputField';
 import { DateField } from 'commons/Forms';
 import Checkbox from 'commons/Forms/Checkbox';
@@ -13,9 +14,10 @@ import Row from 'commons/Forms/Row';
 import { PageHeader } from 'commons/Style';
 import { FormWrapper, SubFormWrapper } from 'commons/Style/FormStyle';
 import { GExpansionPanel as ExpansionPanel ,GExpansionPanelDetails as ExpansionPanelDetails,GExpansionPanelSummary as ExpansionPanelSummary } from 'commons/Panels'
-import { Roles } from 'components/Authenticated/Admin/constants'
 
-const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, formValues }) => {
+// import { Roles } from 'components/Authenticated/Admin/constants'
+
+const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, formValues, selectedRoles, handleCheckbox, roles }) => {
   const gender = [
     { key: 'male', label: 'Male' },
     { key: 'female', label: 'Female' },
@@ -39,12 +41,14 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
     { value: '7', label: 'Province 7' },
   ];
 
+
   const [expanded, setExpanded] = React.useState({ 'panel1': true,'panel2': true,'panel3': true,'panel4': true, 'panel5': true });
 
   const handleChange = panel => (event, data) => {
     setExpanded({ ...expanded,[panel]: (!expanded[panel]) });
   };
 
+  console.log(roles,'roles')
   return (
     <>
       <PageHeader>{formType} Employee</PageHeader>
@@ -169,19 +173,18 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <SubFormWrapper>
+                <p>Select Roles*</p>
                 <Row>
-                  <Field name="create_user" component={Checkbox} label="Create User" />
+                  {roles.map(item => <Field
+                    id={item.id}
+                    name={item.role_name}
+                    label={humanize(item.role_name)}
+                    component={Checkbox}
+                    key={item.id}
+                    onClick={handleCheckbox}
+                    checked={selectedRoles.includes(item.role_name)}
+                  />)}
                 </Row>
-                {formValues.create_user && <Row>
-                  <Field
-                    name="roles"
-                    type="text"
-                    label="Roles"
-                    component={SelectField}
-                    options={Roles}
-                    required
-                  />
-                </Row>}
               </SubFormWrapper>
             </ExpansionPanelDetails>
           </ExpansionPanel>

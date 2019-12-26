@@ -15,12 +15,12 @@ import DeleteModal from 'commons/ModalStyle/deleteModal';
 import {ActionButton} from 'commons/Buttons'
 import { isEmpty } from 'utils';
 import { PATIENTS } from 'constants/routes'
-
-// import DeletePatient from './deleteModal';
-import { selectPatientList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from './selectors';
-import { getPatientList, deletePatient } from './actions';
-import styles, { Icon } from './styled';
-
+import Search from 'commons/Search'
+import { PrimaryButton } from 'commons/Buttons';
+import { TableHeaderWrapper, TableHeader} from 'commons/Table';
+import { selectPatientList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
+import { getPatientList, deletePatient,searchPatient } from '../actions';
+import styles, { Icon } from '../styled';
 class PatientList extends Component {
   constructor(props) {
     super(props);
@@ -61,10 +61,31 @@ class PatientList extends Component {
     this.props.getPatientList(1 + newPage);
   };
 
+  handleSearch =(e)=>{
+    console.log(e,'search')
+    this.props.searchPatient(2);  }
+
   render() {
     const { patients, loading, currentPage, total, rowsPerPage } = this.props;
     const { dialogOpen, selectedPatientId } = this.state;
     return (
+      <>
+      <TableHeaderWrapper>
+      <TableHeader style={{width:'64%'}}>Patient List</TableHeader>
+      <Search handleSubmit={this.handleSearch} />
+      <div style={{'display': 'flex',
+    flex: '1',
+    justifyContent: 'flex-end'}}>
+      <PrimaryButton
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          this.goto(`${PATIENTS.PATIENTS_ROUTE}/new`)}}
+      >
+      Add Patient
+      </PrimaryButton>
+      </div>
+    </TableHeaderWrapper>
       <div>
         <PopUp disableAutoFocus open={dialogOpen} onClose={this.closeDialog}>
           <DeleteModal
@@ -158,6 +179,7 @@ class PatientList extends Component {
           />
         </>
       </div>
+      </>
     );
   }
 }
@@ -172,6 +194,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   getPatientList: page => dispatch(getPatientList(page)),
   deletePatient: id => dispatch(deletePatient(id)),
+  searchPatient: data => dispatch(searchPatient(data)),
 });
 
 export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(PatientList);

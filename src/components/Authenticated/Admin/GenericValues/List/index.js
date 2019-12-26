@@ -28,7 +28,7 @@ class GenericValuesList extends Component {
   };
 
   componentDidMount() {
-    this.props.getGenericValuesList(0);
+    this.props.getGenericValuesList(1);
   }
 
   goto = url => {

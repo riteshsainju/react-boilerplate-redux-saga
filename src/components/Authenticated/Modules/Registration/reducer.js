@@ -20,6 +20,7 @@ const registrationReducer = (state = initialState, action) => {
   case CONS.GET_PATIENT:
   case CONS.UPDATE_PATIENT:
   case CONS.DELETE_PATIENT:
+  case CONS.SEARCH_PATIENT:
     return {
       ...state,
       loading: true,
@@ -27,6 +28,7 @@ const registrationReducer = (state = initialState, action) => {
       success: 'fetching',
     };
   case CONS.GET_PATIENTLIST_SUCCESS:
+  case CONS.SEARCH_PATIENT_SUCCESS:
     return {
       ...state,
       loading    : false,
@@ -70,6 +72,7 @@ const registrationReducer = (state = initialState, action) => {
   case CONS.ADD_NEW_PATIENT_FAILURE:
   case CONS.UPDATE_PATIENT_FAILURE:
   case CONS.DELETE_PATIENT_FAILURE:
+  case CONS.SEARCH_PATIENT_FAILURE:
     return {
       ...state,
       loading: false,

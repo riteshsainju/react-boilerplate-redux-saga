@@ -10,12 +10,12 @@ import validate from 'utils/validate';
 import { isSubmitButtonDisabled } from 'utils';
 import { getRoles } from 'components/Authenticated/actions';
 import { selectRoles } from 'components/Authenticated/selectors';
-import RegistrationForm from './Form';
-import { addEmployee, getEmployee, updateEmployee, resetEmployeeForm } from '../actions';
+import Form from './Form';
+import { getUser, updateUser } from '../actions';
 
-import { selectEmployeeData, selectEmployeeFormValues } from '../selectors';
+import { selectUserData } from '../selectors';
 
-class EmployeeRegistration extends Component {
+class UserForm extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -25,18 +25,17 @@ class EmployeeRegistration extends Component {
 
   componentDidMount() {
     const {
-      computedMatch: {
-        params: { id },
-      },
+
+      // computedMatch: {
+      //   params: { id },
+      // },
+      id,
       getData,
-      resetForm,
       getAllRoles,
     } = this.props;
     getAllRoles();
     if (id) {
       getData(id);
-    } else {
-      resetForm();
     }
   }
 
@@ -65,42 +64,41 @@ class EmployeeRegistration extends Component {
     this.setState({ selectedRoles: checkboxGroup });
   };
 
-  handleFormSubmit = async values => {
-    const {
-      computedMatch: {
-        params: { id },
-      },updateData,
-      addData,
-    } = this.props;
+  handleFormSubmit = values => {
+    const { updateData, id } = this.props;
     const { selectedRoles }= this.state
     if (id) {
       this.removeNullValues(values);
-      updateData({ ...values, roles: selectedRoles });
-    } else addData({ ...values, roles: selectedRoles, password: 'test@123' });
+      this.props.handleClose()
+
+      // updateData({ ...values, roles: selectedRoles });
+    } 
+  };
+
+  handleCancel = () => {
+    console.log('hhhhhhh')
+    this.props.handleClose()
   };
 
   render() {
     const {
-      computedMatch: {
-        params: { id },
-      },
       handleSubmit,
       history,
-      formValues,
       roles,
+      initialValues
     } = this.props;
     const { selectedRoles } = this.state
     return (
-      <RegistrationForm
+      <Form
         handleFormSubmit={this.handleFormSubmit}
         handleSubmit={handleSubmit}
+        handleCancel={this.handleCancel}
         disabled={isSubmitButtonDisabled(this.props)}
         history={history}
-        formType={id ? 'Edit' : 'New'}
-        formValues={formValues}
         selectedRoles={selectedRoles}
         handleCheckbox={this.handleCheckbox}
         roles={roles}
+        user={initialValues}
       />
     );
   }
@@ -120,16 +118,13 @@ const validateFields = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addData    : data => dispatch(addEmployee(data)),
-  getData    : id => dispatch(getEmployee(id)),
-  updateData : data => dispatch(updateEmployee(data)),
-  resetForm  : () => dispatch(resetEmployeeForm()),
+  getData    : id => dispatch(getUser(id)),
+  updateData : data => dispatch(updateUser(data)),
   getAllRoles: ()=>dispatch(getRoles())
 });
 
 const mapStateToProps = createStructuredSelector({
-  initialValues: selectEmployeeData(),
-  formValues   : selectEmployeeFormValues(),
+  initialValues: selectUserData(),
   roles        : selectRoles()
 });
 
@@ -137,9 +132,9 @@ export default compose(
   withRouter,
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
-    form              : 'employeeRegistrationForm',
+    form              : 'userEditForm',
     fields            : validateFields,
     enableReinitialize: true,
     validate,
   }),
-)(EmployeeRegistration);
+)(UserForm);

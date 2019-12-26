@@ -35,3 +35,4 @@ export const Icon = styled.span`
     color: blue;
   }
 `;
+

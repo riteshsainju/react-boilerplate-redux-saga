@@ -5,9 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { TextField, SelectField } from 'commons/Forms/InputField';
 import { DateField } from 'commons/Forms';
-import Checkbox from 'commons/Forms/Checkbox';
 import Radio from 'commons/Forms/Radio';
-
 import { PrimaryButton } from 'commons/Buttons';
 import Row from 'commons/Forms/Row';
 import { PageHeader } from 'commons/Style';
@@ -64,15 +62,15 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
             <ExpansionPanelDetails>
               <SubFormWrapper>
                 <Row>
-                  <Field name="first_name" type="text" label="First Name" component={TextField} required />
+                  <Field name="first_name" type="text" label="First Name*" component={TextField} />
                   <Field name="middle_name" type="text" label="Middle Name" component={TextField} />
-                  <Field name="last_name" type="text" label="Last Name" component={TextField} required />
+                  <Field name="last_name" type="text" label="Last Name*" component={TextField} />
                 </Row>
                 <Row>
                   <Field
                     id="gender"
                     name="gender"
-                    label="Gender"
+                    label="Gender*"
                     className="input-field"
                     component={Radio}
                     margin="normal"
@@ -81,29 +79,27 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                   />
                 </Row>
                 <Row>
-                  <Field name="date_of_birth" maxDate={new Date()} component={DateField} label="Date of Birth" required />
+                  <Field name="date_of_birth" maxDate={new Date()} component={DateField} label="Date of Birth*" />
                 </Row>
                 <Row><Field
                   name="department"
                   type="text"
-                  label="Department"
+                  label="Department*"
                   component={SelectField}
                   options={departments}
 
                   // css={{ width: '200px' }}
-                  required
                 />
                 <Field
                   name="specialization"
                   type="text"
-                  label="Specialization"
+                  label="Specialization*"
                   component={SelectField}
                   options={specializations}
-                  required
                 /></Row>
                 <Row>
-                  <Field name="degree" type="text" label="Degree" component={TextField} required />
-                  <Field name="charge" type="number" label="Charge" component={TextField} required />
+                  <Field name="degree" type="text" label="Degree*" component={TextField} />
+                  <Field name="charge" type="number" label="Charge*" component={TextField} />
                 </Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>
@@ -117,10 +113,10 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
             <ExpansionPanelDetails>
               <SubFormWrapper>
                 <Row>
-                  <Field name="email" label="Email" component={TextField} required />
+                  <Field name="email" label="Email*" component={TextField} />
                 </Row>
                 <Row>
-                  <Field name="mobile_number" label="Mobile" component={TextField} required />
+                  <Field name="mobile_number" label="Mobile*" component={TextField} />
                   <Field name="phone_number" label="Phone" component={TextField} />
                 </Row>
               </SubFormWrapper>
@@ -138,16 +134,15 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                   <Field
                     name="home_twon_state"
                     type="text"
-                    label="State"
+                    label="State*"
                     component={SelectField}
                     options={states}
-                    required
                   />         
-                  <Field name="home_twon_address" type="text" label="Address" component={TextField} required />
+                  <Field name="home_twon_address" type="text" label="Address*" component={TextField} />
                 </Row>
                 <Row>
-                  <Field name="home_twon_city" type="text" label="City" component={TextField} required />
-                  <Field name="home_twon_country" type="text" label="Country" component={TextField} required />
+                  <Field name="home_twon_city" type="text" label="City*" component={TextField} />
+                  <Field name="home_twon_country" type="text" label="Country*" component={TextField} />
                 </Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>
@@ -167,32 +162,16 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                     label="State"
                     component={SelectField}
                     options={states}
-                    required
                   />
-                  <Field name="office_address" type="text" label="Address" component={TextField} required />
+                  <Field name="office_address" type="text" label="Address" component={TextField} />
                 </Row>
                 <Row>
-                  <Field name="office_city" type="text" label="City" component={TextField} required />
-                  <Field name="office_country" type="text" label="Country" component={TextField} required />
+                  <Field name="office_city" type="text" label="City" component={TextField} />
+                  <Field name="office_country" type="text" label="Country" component={TextField} />
                 </Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <ExpansionPanel expanded={expanded.panel5} onChange={handleChange('panel5')}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-            >
-              User Settings
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <SubFormWrapper>
-                <Row>
-                  <Field name="create_user" component={Checkbox} label="Create User" />
-                </Row>
-              </SubFormWrapper>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-    
           <PrimaryButton type="submit" disabled={disabled} variant="contained" color="primary">
             Save
           </PrimaryButton>

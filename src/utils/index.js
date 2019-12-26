@@ -24,3 +24,13 @@ export const isLogin = () => {
   }
   return false;
 };
+
+export const humanize = path => {
+  // eslint-disable-line import/prefer-default-export
+  if (path !== null) {
+    const spath = path.split('_');
+    const readableValue = spath.map(p => p.charAt(0).toUpperCase() + p.substr(1).toLowerCase()).join(' ');
+    return readableValue;
+  }
+  return '';
+};

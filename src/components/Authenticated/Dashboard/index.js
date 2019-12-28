@@ -1,9 +1,13 @@
 import React from 'react';
 import { PageHeader } from 'commons/Style';
+import Card from './Card'
 
 const Dashboard = ({ history }) => {
   return (
-    <PageHeader>Dashboard</PageHeader>
+    <>
+      <PageHeader>Dashboard</PageHeader>
+      <Card />
+    </>
   );
 };
 

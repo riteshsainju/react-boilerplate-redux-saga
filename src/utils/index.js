@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import cookieJar from './cookieJar';
 
 export { cookieJar };
@@ -34,3 +35,7 @@ export const humanize = path => {
   }
   return '';
 };
+
+export const getDate = (date, dateFormat = 'dd MMM, yyyy') => {
+  return date && format(new Date(date), dateFormat)
+}

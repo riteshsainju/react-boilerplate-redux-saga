@@ -9,12 +9,12 @@ import Switch from 'commons/Forms/Switch';
 import { PrimaryButton, SecondaryButton } from 'commons/Buttons';
 import Row from 'commons/Forms/Row';
 
-const Form = ({ handleFormSubmit, handleSubmit, handleCancel, selectedRoles, handleCheckbox, roles, user, disabled }) => {
+const Form = ({ handleFormSubmit, handleSubmit, handleCancel, selectedRoles, handleCheckbox, roles, user, disabled, handleSwitch, status }) => {
   return (
     <>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Row>
-          <p>Name:</p> <p>{user.first_name} {user.last_name}</p>
+          <p>Name:</p> <p>{user.name}</p>
         </Row>
         <Row>
           <p>Email:</p> <p>{user.email}</p>
@@ -26,6 +26,8 @@ const Form = ({ handleFormSubmit, handleSubmit, handleCancel, selectedRoles, han
             name="status"
             label="Active"
             component={Switch}
+            onChange={handleSwitch}
+            checked={status}
           />
         </Row>
         <Row>
@@ -33,13 +35,13 @@ const Form = ({ handleFormSubmit, handleSubmit, handleCancel, selectedRoles, han
         </Row>
         <Row>
           {roles.map(item => <Field
-            id={item.id}
+            id={item.id.toString()}
             name={item.role_name}
             label={humanize(item.role_name)}
             component={Checkbox}
             key={item.id}
             onClick={handleCheckbox}
-            checked={selectedRoles.includes(item.role_name)}
+            checked={selectedRoles.includes(item.id.toString())}
           />)}
         </Row>
     

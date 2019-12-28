@@ -13,7 +13,7 @@ import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
 import DeleteModal from 'commons/ModalStyle/deleteModal';
 import {ActionButton} from 'commons/Buttons'
-import { isEmpty } from 'utils';
+import { isEmpty, getDate } from 'utils';
 import { PATIENTS } from 'constants/routes'
 import Search from 'commons/Search'
 import { PrimaryButton } from 'commons/Buttons';
@@ -142,7 +142,7 @@ class PatientList extends Component {
                       <TableCell>{gender}</TableCell>
                       <TableCell>{date_of_birth}</TableCell>
                       <TableCell>{mobile_number}</TableCell>
-                      <TableCell>{created_at.split(' ')[0]}</TableCell>
+                      <TableCell>{getDate(created_at)}</TableCell>
                       <TableCell>
                         <Icon title="Edit">
                           {/* <EditIcon onClick={() => this.goto(`${PATIENTS.PATIENTS_ROUTE}/edit/${id}`)}></EditIcon>

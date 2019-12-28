@@ -9,7 +9,7 @@ export const SettingsSwitch = styled(FormControlLabel)`
   }
 `;
 
-const GSwitchField = ({ input, label, style, ...rest }) => (
+const GSwitchField = ({ input, checked, label, style, ...rest }) => (
   <>
     <SettingsSwitch
       label={label}
@@ -19,7 +19,8 @@ const GSwitchField = ({ input, label, style, ...rest }) => (
           onChange={input.onChange}
           color="primary"
           name={input.name}
-          checked={input.checked ? input.checked : !!input.value}
+          // eslint-disable-next-line no-unneeded-ternary
+          checked={checked}
         />
       }
       active={`${input.value}`}

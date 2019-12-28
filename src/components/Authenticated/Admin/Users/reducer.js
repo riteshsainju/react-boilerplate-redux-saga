@@ -30,7 +30,7 @@ const usersReducer = (state = initialState, action) => {
       loading    : false,
       error      : null,
       success    : 'success',
-      userList   : action.data.data.items,
+      userList   : action.data.data.items[0],
       currentPage: action.data.data.pagination.current_page,
       total      : action.data.data.pagination.total,
       rowsPerPage: action.data.data.pagination.per_page,

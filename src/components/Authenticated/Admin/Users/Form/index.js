@@ -20,15 +20,12 @@ class UserForm extends Component {
     super();
     this.state = {
       selectedRoles: [],
+      status:false,
     };
   }
 
   componentDidMount() {
     const {
-
-      // computedMatch: {
-      //   params: { id },
-      // },
       id,
       getData,
       getAllRoles,
@@ -45,8 +42,13 @@ class UserForm extends Component {
     if (prevProps.initialValues !== initialValues) {
       this.setState({
         selectedRoles: initialValues.roles
-          ? initialValues.roles
-          : selectedRoles })}
+          ? initialValues.roles.map(role=>role.toString())
+          : selectedRoles,
+        status:initialValues.status === 'active'
+          ? true
+          : false,
+      })
+    }
   }
 
   removeNullValues = obj => {
@@ -59,19 +61,24 @@ class UserForm extends Component {
 
   handleCheckbox = event => {
     const { selectedRoles } = this.state;
-    const item = event.target.name;
+    const item = event.target.id;
     const checkboxGroup = selectedRoles.includes(item) ? selectedRoles.filter(i => i !== item) : [...selectedRoles, item];
     this.setState({ selectedRoles: checkboxGroup });
   };
 
+  handleSwitch= event => {
+    this.setState({ status: event.target.checked });
+  };
+
+
   handleFormSubmit = values => {
     const { updateData, id } = this.props;
-    const { selectedRoles }= this.state
+    const { selectedRoles,status }= this.state
+    console.log(this.state.status,'asdsafdsfad')
     if (id) {
       this.removeNullValues(values);
       this.props.handleClose()
-
-      // updateData({ ...values, roles: selectedRoles });
+      updateData({ ...values, roles: selectedRoles, status: status? 'active' : 'inactive' });
     } 
   };
 
@@ -84,9 +91,9 @@ class UserForm extends Component {
       handleSubmit,
       history,
       roles,
-      initialValues
+      user
     } = this.props;
-    const { selectedRoles } = this.state
+    const { selectedRoles,status } = this.state
     return (
       <Form
         handleFormSubmit={this.handleFormSubmit}
@@ -97,7 +104,9 @@ class UserForm extends Component {
         selectedRoles={selectedRoles}
         handleCheckbox={this.handleCheckbox}
         roles={roles}
-        user={initialValues}
+        user={user}
+        handleSwitch={this.handleSwitch}
+        status={status}
       />
     );
   }
@@ -124,7 +133,9 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = createStructuredSelector({
   initialValues: selectUserData(),
-  roles        : selectRoles()
+  roles        : selectRoles(),
+  user: selectUserData(),
+
 });
 
 export default compose(

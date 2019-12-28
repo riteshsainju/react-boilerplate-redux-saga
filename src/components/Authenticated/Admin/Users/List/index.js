@@ -12,7 +12,7 @@ import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
 import EditFormModal from './EditModal';
-import { isEmpty } from 'utils';
+import { isEmpty, getDate } from 'utils';
 
 // import DeleteUser from './deleteModal';
 import { selectUserList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
@@ -21,8 +21,6 @@ import { Icon } from 'commons/Style/FormStyle';
 // import { USERS } from 'constants/routes'
 import { Avatar } from 'components/Authenticated/styled';
 import avatar from 'assets/images/doctor.png'
-import EditForm from '../Form'
-import { ModalWrapper, Header, CustomCrossIcon, ModalBody, Text, ButtonWrapper } from 'commons/ModalStyle';
 
 class UserList extends Component {
   constructor(props) {
@@ -71,11 +69,6 @@ class UserList extends Component {
     { value: '4', label: 'ICU' },
   ];
 
-  getLabel(array,val){
-    let filteredList = array.filter((item)=>item['value'] == val )
-      return filteredList[0].label
-      }
-
   render() {
     const { users, loading, currentPage, total, rowsPerPage } = this.props;
     const { dialogOpen, selectedUserId } = this.state;
@@ -83,25 +76,20 @@ class UserList extends Component {
       <div >
         <PopUp disableAutoFocus open={dialogOpen} onClose={this.closeDialog}>
           <EditFormModal
-            // id={selectedUserId}
-            id={1}
+            id={selectedUserId}
             handleClose={this.closeDialog}
           />
-            {/* <ModalWrapper>
-
-          <EditForm id ={1}></EditForm>
-          </ModalWrapper> */}
         </PopUp>
         <MainTable>
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell />
+                <TableCell></TableCell>
                 <TableCell>Name</TableCell>
-                <TableCell>Address</TableCell>
-                <TableCell>Department</TableCell>
-                <TableCell>Mobile Number</TableCell>
-                {/* <TableCell>Action</TableCell> */}
+                <TableCell>Email</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>CreatedAt</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -112,21 +100,20 @@ class UserList extends Component {
                   (
                     {
                       id,
-                      first_name,
-                      last_name,
-                      home_twon_address,
-                      department,
-                      mobile_number
+                      name,
+                      email,
+                      status,
+                      created_at
                     },
                     i,
                   ) => (
                     <TableRow key={id} >
-                      <TableCell>{id}</TableCell>
+                      <TableCell>{id} </TableCell>
                       <TableCell><Avatar src={avatar} alt="profile" /></TableCell>
-                      <TableCell>{first_name} {last_name}</TableCell>
-                      <TableCell>{home_twon_address}</TableCell>
-                      <TableCell>{this.getLabel(this.departments,department)}</TableCell>
-                      <TableCell>{mobile_number}</TableCell>
+                      <TableCell>{name}</TableCell>
+                      <TableCell>{email}</TableCell>
+                      <TableCell>{status}</TableCell>
+                      <TableCell>{getDate(created_at)}</TableCell>
                       <TableCell>
                         <Icon title="Edit">
                           <EditIcon

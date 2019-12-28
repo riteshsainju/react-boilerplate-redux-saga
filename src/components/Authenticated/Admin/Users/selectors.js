@@ -17,6 +17,7 @@ export const selectTotal = () => state => {
 };
 
 export const selectUserData = () => state => {
+  console.log(state.usersReducer.userData,'userdata')
   return state.usersReducer.userData;
 };
 

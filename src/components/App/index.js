@@ -7,7 +7,7 @@ import { PublicRoute, PrivateRoute } from 'commons/Route';
 import Authenticated from 'components/Authenticated';
 import Authentication from 'components/Authentication';
 import Navbar from 'commons/NavBar';
-import Sidebar from 'commons/SideBar';
+import SidebarRouter from 'commons/SideBarRouter';
 import { isLogin } from 'utils';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,7 +22,7 @@ const showNav = authPage => {
 
 const showSidebar = authPage => {
   if (!authPage && isLogin()) {
-    return <Sidebar sideBarItems={getSidebarItems()} />
+    return <SidebarRouter sideBarItems={getSidebarItems()} />
   }
   return <></>;
 };

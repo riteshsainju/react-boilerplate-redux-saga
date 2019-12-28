@@ -47,7 +47,6 @@ class EmployeeRegistration extends Component {
     const { selectedRoles } = this.state
     const { initialValues } = this.props
     if (prevProps.initialValues !== initialValues) {
-      debugger
       this.setState({
         selectedRoles: initialValues.roles
           ? initialValues.roles.map(role=>role.toString())

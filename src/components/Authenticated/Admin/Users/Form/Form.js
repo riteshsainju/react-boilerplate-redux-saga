@@ -20,10 +20,11 @@ const Form = ({ handleFormSubmit, handleSubmit, handleCancel, selectedRoles, han
           <p>Email:</p> <p>{user.email}</p>
         </Row>
         <Row>
+          <p>Status:</p>
           <Field
             id="status"
             name="status"
-            label="Status"
+            label="Active"
             component={Switch}
           />
         </Row>

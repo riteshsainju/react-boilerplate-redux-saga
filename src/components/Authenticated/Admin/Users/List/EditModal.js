@@ -8,7 +8,7 @@ const EditFormModal = ({ id, handleClose }) => (
       <span>Edit User Settings</span>
       <CustomCrossIcon onClick={handleClose} />
     </Header>
-    <ModalBody padding="15px">
+    <ModalBody padding="40px">
       <EditForm id={id} handleClose={handleClose} />
     </ModalBody>
   </ModalWrapper>

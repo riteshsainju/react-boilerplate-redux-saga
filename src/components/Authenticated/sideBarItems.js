@@ -1,27 +1,69 @@
 import { DASHBOARD_PATH, EMPLOYEES, DOCTORS, GENERIC_VALUES, PATIENTS, USERS } from 'constants/routes'
+import { faHome, faProcedures, faUserCog, faUserMd, faUsers, faList, faUserFriends } from '@fortawesome/free-solid-svg-icons'
+
+// import { faHome, faProcedures, faUserCog, faUserMd, faUsers, faList, faUserFriends, faVial,faXRay } from '@fortawesome/free-solid-svg-icons'
 
 const SideBarItems = () => [
   {
     name: 'Dashboard',
-    link: DASHBOARD_PATH
+    url : DASHBOARD_PATH,
+    icon: faHome,
   },
   {
     name: 'Paitients',
-    link: PATIENTS.PATIENTS_ROUTE,
+    url : PATIENTS.PATIENTS_ROUTE,
+    icon: faProcedures,
+
   },
   {
-    name : 'Admin',
-    items: [
+    name    : 'Admin',
+    icon    : faUserCog,
+    children: [
       { name: 'Doctors',
-        link: DOCTORS.DOCTORS_ROUTE },
+        url : DOCTORS.DOCTORS_ROUTE,
+        icon: faUserMd,
+      },
       { name: 'Employees',
-        link: EMPLOYEES.EMPLOYEES_ROUTE },
+        url : EMPLOYEES.EMPLOYEES_ROUTE,
+        icon: faUserFriends
+
+      },
       { name: 'Generic Values',
-        link: GENERIC_VALUES.GENERIC_VALUES_ROUTE },
+        url : GENERIC_VALUES.GENERIC_VALUES_ROUTE,
+        icon: faList
+
+      },
       { name: 'Users',
-        link: USERS.USERS_ROUTE },
+        url : USERS.USERS_ROUTE,
+        icon: faUsers
+
+      },
     ]
-  }
+  },
+
+  // {
+  //   name: 'Billing',
+  //   url  : USERS.USERS_ROUTE,
+  //   icon: faProcedures,
+
+  // },
+  // {
+  //   name    : 'Reports',
+  //   icon    : faProcedures,
+  //   children: [
+  //     { name : 'Lab',
+  //       url  : USERS.USERS_ROUTE,
+  //       style: { paddingLeft: '18px' },
+  //       icon : faVial,
+  //     },
+  //     { name : 'X-Ray',
+  //       url  : USERS.USERS_ROUTE,
+  //       style: { paddingLeft: '18px' },
+  //       icon : faXRay
+  //     },
+  //   ]
+
+  // },
 ]
 
 export default SideBarItems

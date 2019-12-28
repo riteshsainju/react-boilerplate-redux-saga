@@ -1,7 +1,5 @@
-import { DASHBOARD_PATH, EMPLOYEES, DOCTORS, GENERIC_VALUES, PATIENTS, USERS } from 'constants/routes'
-import { faHome, faProcedures, faUserCog, faUserMd, faUsers, faList, faUserFriends } from '@fortawesome/free-solid-svg-icons'
-
-// import { faHome, faProcedures, faUserCog, faUserMd, faUsers, faList, faUserFriends, faVial,faXRay } from '@fortawesome/free-solid-svg-icons'
+import { DASHBOARD_PATH, EMPLOYEES, DOCTORS, GENERIC_VALUES, PATIENTS, USERS, BILLING, REPORTS } from 'constants/routes'
+import { faHome, faProcedures, faUserCog, faUserMd, faUsers, faList, faUserFriends, faVial,faXRay } from '@fortawesome/free-solid-svg-icons'
 
 const SideBarItems = () => [
   {
@@ -40,30 +38,27 @@ const SideBarItems = () => [
       },
     ]
   },
+  {
+    name: 'Billing',
+    url : BILLING.BILLING_ROUTE,
+    icon: faProcedures,
 
-  // {
-  //   name: 'Billing',
-  //   url  : USERS.USERS_ROUTE,
-  //   icon: faProcedures,
+  },
+  {
+    name    : 'Reports',
+    icon    : faProcedures,
+    children: [
+      { name: 'Lab',
+        url : REPORTS.LAB_REPORTS_PATH,
+        icon: faVial,
+      },
+      { name: 'X-Ray',
+        url : REPORTS.XRAY_REPORTS_PATH,
+        icon: faXRay
+      },
+    ]
 
-  // },
-  // {
-  //   name    : 'Reports',
-  //   icon    : faProcedures,
-  //   children: [
-  //     { name : 'Lab',
-  //       url  : USERS.USERS_ROUTE,
-  //       style: { paddingLeft: '18px' },
-  //       icon : faVial,
-  //     },
-  //     { name : 'X-Ray',
-  //       url  : USERS.USERS_ROUTE,
-  //       style: { paddingLeft: '18px' },
-  //       icon : faXRay
-  //     },
-  //   ]
-
-  // },
+  },
 ]
 
 export default SideBarItems

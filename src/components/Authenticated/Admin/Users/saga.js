@@ -1,4 +1,4 @@
-import { take, cancel, fork, takeLatest } from 'redux-saga/effects';
+import { take, cancel, fork, takeLatest, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { toast } from 'react-toastify';
 
@@ -13,6 +13,7 @@ import {
   getUserFailure,
   updateUserSuccess,
   updateUserFailure,
+  getUserList
 } from './actions';
 
 const API_BASE = process.env.REACT_APP_API_URL;
@@ -27,10 +28,23 @@ function* redirectOnSuccess(type) {
 
   if (type === 'getUserSuccess') {
     const action = yield take(CONS.GET_USER_SUCCESS);
+    debugger
     const { data } = action;
     if (data) {
       console.log('data fetched successfully');
-      toast.success('data fetched successfully');
+    }
+  }
+
+  if (type === 'updateUserSuccess') {
+    debugger
+    const action = yield take(CONS.UPDATE_USER_SUCCESS);
+    debugger
+    const { data } = action;
+    if (data) {
+      debugger
+      console.log('data updateed successfully');
+      toast.success('User Data Updated Successfully')
+      yield put(getUserList());
     }
   }
 }
@@ -38,6 +52,18 @@ function* redirectOnSuccess(type) {
 function* redirectOnError(type) {
   if (type === 'getUserListFailure') {
     const action = yield take(CONS.GET_USERLIST_FAILURE);
+    if (action.data) {
+      toast.error('Error Fetching data');
+    }
+  }
+  if (type === 'getUserFailure') {
+    const action = yield take(CONS.GET_USER_FAILURE);
+    if (action.data) {
+      toast.error('Error Fetching data');
+    }
+  }
+  if (type === 'getUserListFailure') {
+    const action = yield take(CONS.UPDATE_USER_FAILURE);
     if (action.data) {
       toast.error('Error Fetching data');
     }

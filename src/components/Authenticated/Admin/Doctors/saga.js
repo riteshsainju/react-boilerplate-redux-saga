@@ -30,7 +30,7 @@ function* redirectOnSuccess(type) {
     const action = yield take(CONS.GET_ALL_DOCTORS_SUCCESS);
     const { data } = action;
     if (data) {
-      console.log('al doctorsdata fetched successfully');
+      console.log('all doctors data fetched successfully');
     }
   }
   if (type === 'getDoctorListSuccess') {

@@ -74,7 +74,6 @@ class UserForm extends Component {
   handleFormSubmit = values => {
     const { updateData, id } = this.props;
     const { selectedRoles,status }= this.state
-    console.log(this.state.status,'asdsafdsfad')
     if (id) {
       this.removeNullValues(values);
       this.props.handleClose()

@@ -5,22 +5,20 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-// import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 
 import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
-import EditFormModal from './EditModal';
-import { isEmpty, getDate } from 'utils';
-
-// import DeleteUser from './deleteModal';
-import { selectUserList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
-import { getUserList, deleteUser } from '../actions';
+import { isEmpty, getDate, humanize } from 'utils';
 import { Icon } from 'commons/Style/FormStyle';
-// import { USERS } from 'constants/routes'
 import { Avatar } from 'components/Authenticated/styled';
 import avatar from 'assets/images/doctor.png'
+import EditFormModal from './EditModal';
+import { selectUserList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
+import { getUserList, deleteUser } from '../actions';
+import {StatusCell} from '../styled'
+
 
 class UserList extends Component {
   constructor(props) {
@@ -112,7 +110,7 @@ class UserList extends Component {
                       <TableCell><Avatar src={avatar} alt="profile" /></TableCell>
                       <TableCell>{name}</TableCell>
                       <TableCell>{email}</TableCell>
-                      <TableCell>{status}</TableCell>
+                      <TableCell><StatusCell status={status}>{humanize(status)}</StatusCell></TableCell>
                       <TableCell>{getDate(created_at)}</TableCell>
                       <TableCell>
                         <Icon title="Edit">

@@ -30,7 +30,7 @@ const usersReducer = (state = initialState, action) => {
       loading    : false,
       error      : null,
       success    : 'success',
-      userList   : action.data.data.items[0],
+      userList   : action.data.data.items,
       currentPage: action.data.data.pagination.current_page,
       total      : action.data.data.pagination.total,
       rowsPerPage: action.data.data.pagination.per_page,
@@ -46,9 +46,11 @@ const usersReducer = (state = initialState, action) => {
   case CONS.UPDATE_USER_SUCCESS:
     return {
       ...state,
-      loading: false,
-      error  : null,
-      success: 'success',
+      loading : false,
+      error   : null,
+      success : 'success',
+      userData: action.data.data,
+
     };
   case CONS.GET_USERLIST_FAILURE:
   case CONS.GET_USER_FAILURE:

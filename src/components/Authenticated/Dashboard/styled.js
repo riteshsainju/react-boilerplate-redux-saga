@@ -39,7 +39,8 @@ export const CardContent = styled(cardContent)`
 `;
 
 export const CardWrapper= styled.div`
-  display: flex;`
+  display: flex;
+  padding: 0 0 20px 5px`
 
 export const CardIcon = styled.div`
   font-size: 34px;
@@ -62,3 +63,17 @@ export const CardSubText = styled.div`
 
 export const CardTextContent = styled.div`
 `;
+
+export const ChartBox = styled.div`
+ height: 300px;
+ width: 500px;
+ padding: 30px 40px;
+ margin: 0 10px;
+ box-shadow: 0 0px 0px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+`;
+
+
+export const ChartWrapper = styled.div`
+ display:flex;
+`;
+

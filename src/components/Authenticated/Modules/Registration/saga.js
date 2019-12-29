@@ -35,7 +35,7 @@ function* redirectOnSuccess(type) {
     const action = yield take(CONS.GET_PATIENT_SUCCESS);
     const { data } = action;
     if (data) {
-      console.log('Patent data fetched successfully');
+      console.log('Patient data fetched successfully');
     }
   }
   if (type === 'addNewPatientSuccess') {

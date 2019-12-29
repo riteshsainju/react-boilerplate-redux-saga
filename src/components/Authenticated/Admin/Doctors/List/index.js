@@ -9,6 +9,8 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 
+import {getGenericValuesList} from 'components/Authenticated/Admin/GenericValues/actions'
+import { selectGenericValuesList } from 'components/Authenticated/Admin/GenericValues/selectors';
 import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
 import DeleteModal from 'commons/ModalStyle/deleteModal';
@@ -30,6 +32,7 @@ class DoctorList extends Component {
   };
 
   componentDidMount() {
+    this.props.getAllGenericValues(0)
     this.props.getDoctorList(1);
   }
 
@@ -73,12 +76,13 @@ class DoctorList extends Component {
   ];
 
   getLabel(array,val){
-    let filteredList = array.filter((item)=>item['value'] == val )
-      return filteredList[0].label
-      }
+    let mappedArray = array.map(item=> ({ 'value': item.id, 'label': item.title }))
+    let filteredList = mappedArray.filter((item)=>item['value'] == val )
+      return filteredList.length > 0 ?filteredList[0].label:""
+    }
 
   render() {
-    const { doctors, loading, currentPage, total, rowsPerPage } = this.props;
+    const { doctors, loading, currentPage, total, rowsPerPage, allGenericValues } = this.props;
     const { dialogOpen, selectedDoctorId } = this.state;
     return (
       <div >
@@ -125,8 +129,8 @@ class DoctorList extends Component {
                       <TableCell>{id}</TableCell>
                       <TableCell>{first_name} {last_name}</TableCell>
                       <TableCell>{home_twon_address}</TableCell>
-                      <TableCell>{this.getLabel(this.specializations,specialization)}</TableCell>
-                      <TableCell>{this.getLabel(this.departments,department)}</TableCell>
+                      <TableCell>{this.getLabel(allGenericValues.filter((item)=>item.type === 'specialization'),specialization)}</TableCell>
+                      <TableCell>{this.getLabel(allGenericValues.filter((item)=>item.type === 'department'),department)}</TableCell>
                       <TableCell>{degree}</TableCell>
                       <TableCell>
                         <Icon title="Edit">
@@ -166,11 +170,15 @@ const mapStateToProps = createStructuredSelector({
   total: selectTotal(),
   currentPage: selectCurrentPage(),
   rowsPerPage: selectRowsPerPage(),
+  allGenericValues: selectGenericValuesList()
+
 });
 
 const mapDispatchToProps = dispatch => ({
   getDoctorList: page => dispatch(getDoctorList(page)),
   deleteDoctor: id => dispatch(deleteDoctor(id)),
+  getAllGenericValues: page => dispatch(getGenericValuesList(page)),
+
 });
 
 export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(DoctorList);

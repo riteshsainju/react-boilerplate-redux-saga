@@ -11,8 +11,11 @@ import Row from 'commons/Forms/Row';
 import { PageHeader } from 'commons/Style';
 import { FormWrapper, SubFormWrapper } from 'commons/Style/FormStyle';
 import { GExpansionPanel as ExpansionPanel ,GExpansionPanelDetails as ExpansionPanelDetails,GExpansionPanelSummary as ExpansionPanelSummary } from 'commons/Panels'
+import Checkbox from 'commons/Forms/Checkbox';
+import { humanize } from 'utils'
 
-const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, formValues }) => {
+const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, formValues,
+  selectedRoles, handleCheckbox, roles, department, specialization }) => {
   const gender = [
     { key: 'male', label: 'Male' },
     { key: 'female', label: 'Female' },
@@ -28,19 +31,20 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
     { value: 'province7', label: 'Province 7' },
   ];
 
-  const departments = [
-    { value: '1', label: 'Emergency' },
-    { value: '2', label: 'Cardiology' },
-    { value: '3', label: 'Neurology' },
-    { value: '4', label: 'ICU' },
-  ];
+  // const departments = [
+  //   { value: '1', label: 'Emergency' },
+  //   { value: '2', label: 'Cardiology' },
+  //   { value: '3', label: 'Neurology' },
+  //   { value: '4', label: 'ICU' },
+  // ];
   
-  const specializations = [
-    { value: '1', label: 'Physician' },
-    { value: '2', label: 'Cardiologist' },
-    { value: '3', label: 'NeuroSurgeon' },
-    { value: '4', label: 'Therapist' },
-  ];
+  // const specializations = [
+  //   { value: '1', label: 'Physician' },
+  //   { value: '2', label: 'Cardiologist' },
+  //   { value: '3', label: 'NeuroSurgeon' },
+  //   { value: '4', label: 'Therapist' },
+  // ];
+
   
   const [expanded, setExpanded] = React.useState({ 'panel1': true,'panel2': true,'panel3': true,'panel4': true, 'panel5': true, });
 
@@ -86,7 +90,7 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                   type="text"
                   label="Department*"
                   component={SelectField}
-                  options={departments}
+                  options={department}
 
                   // css={{ width: '200px' }}
                 />
@@ -95,7 +99,7 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                   type="text"
                   label="Specialization*"
                   component={SelectField}
-                  options={specializations}
+                  options={specialization}
                 /></Row>
                 <Row>
                   <Field name="degree" type="text" label="Degree*" component={TextField} />
@@ -168,6 +172,29 @@ const Form = ({ handleFormSubmit, handleSubmit, disabled, history, formType, for
                 <Row>
                   <Field name="office_city" type="text" label="City" component={TextField} />
                   <Field name="office_country" type="text" label="Country" component={TextField} />
+                </Row>
+              </SubFormWrapper>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <ExpansionPanel expanded={expanded.panel5} onChange={handleChange('panel5')}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+            >
+              User Settings
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <SubFormWrapper>
+                <p>Select Roles*</p>
+                <Row>
+                  {roles.map(item => <Field
+                    id={item.id.toString()}
+                    name={item.role_name}
+                    label={humanize(item.role_name)}
+                    component={Checkbox}
+                    key={item.id}
+                    onClick={handleCheckbox}
+                    checked={selectedRoles.includes(item.id.toString())}
+                  />)}
                 </Row>
               </SubFormWrapper>
             </ExpansionPanelDetails>

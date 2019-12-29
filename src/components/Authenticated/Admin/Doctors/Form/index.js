@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { compose } from 'redux';
@@ -7,25 +8,54 @@ import { withRouter } from 'react-router-dom';
 
 import validate from 'utils/validate';
 import { isSubmitButtonDisabled } from 'utils';
+import { getRoles } from 'components/Authenticated/actions';
+import { selectRoles } from 'components/Authenticated/selectors';
+import { getGenericValuesList } from 'components/Authenticated/Admin/GenericValues/actions';
+import { selectGenericValuesList } from 'components/Authenticated/Admin/GenericValues/selectors';
 import RegistrationForm from './Form';
 import { addDoctor, getDoctor, updateDoctor, resetDoctorForm } from '../actions';
 import { selectDoctorData,selectDoctorFormValues } from '../selectors';
 
 class DoctorRegistration extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      selectedRoles: [],
+    };
+  }
+  
   componentDidMount() {
     const {
       computedMatch: {
         params: { id },
       },
       getData,
-      resetForm
+      resetForm,
+
+      // getAllRoles,
+      getAllGenericValues
     } = this.props;
+
+    // getAllRoles();
+    getAllGenericValues(0);
     if (id) {
       getData(id);
     } else {
       resetForm();
     }
   }
+
+
+  componentDidUpdate(prevProps) {
+    const { selectedRoles } = this.state
+    const { initialValues } = this.props
+    if (prevProps.initialValues !== initialValues) {
+      this.setState({
+        selectedRoles: initialValues.roles
+          ? initialValues.roles.map(role=>role.toString())
+          : selectedRoles })}
+  }
+
 
   removeNullValues = obj => {
     for (const propName in obj) {
@@ -35,6 +65,13 @@ class DoctorRegistration extends Component {
     }
   };
 
+  handleCheckbox = event => {
+    const { selectedRoles } = this.state;
+    const item = event.target.id;
+    const checkboxGroup = selectedRoles.includes(item) ? selectedRoles.filter(i => i !== item) : [...selectedRoles, item];
+    this.setState({ selectedRoles: checkboxGroup });
+  };
+
   handleFormSubmit = async values => {
     const {
       computedMatch: {
@@ -42,10 +79,11 @@ class DoctorRegistration extends Component {
       },updateData,
       addData,
     } = this.props;
+    const { selectedRoles }= this.state
     if (id) {
-      this.removeNullValues(values);
+      this.removeNullValues({ ...values, roles: selectedRoles });
       updateData(values);
-    } else addData({ ...values, password: 'test@123' });
+    } else addData({ ...values, roles: selectedRoles,password: 'test@123' });
   };
 
   render() {
@@ -54,8 +92,10 @@ class DoctorRegistration extends Component {
         params: { id },
       },handleSubmit,
       history,formValues,
-
+      roles,
+      allGenericValues
     } = this.props;
+    const { selectedRoles } = this.state
 
     return (
       <RegistrationForm
@@ -65,6 +105,12 @@ class DoctorRegistration extends Component {
         history={history}
         formType={id ? 'Edit' : 'Add'}
         formValues={formValues}
+        selectedRoles={selectedRoles}
+        handleCheckbox={this.handleCheckbox}
+        roles={roles}
+        genericValues={allGenericValues}
+        department={allGenericValues.filter(item=>item.type === 'department')}
+        specialization={allGenericValues.filter(item=>item.type === 'specialization')}
       />
     );
   }
@@ -88,15 +134,19 @@ const validateFields = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addData   : data => dispatch(addDoctor(data)),
-  getData   : id => dispatch(getDoctor(id)),
-  updateData: data => dispatch(updateDoctor(data)),
-  resetForm : () => dispatch(resetDoctorForm()),
+  addData            : data => dispatch(addDoctor(data)),
+  getData            : id => dispatch(getDoctor(id)),
+  updateData         : data => dispatch(updateDoctor(data)),
+  resetForm          : () => dispatch(resetDoctorForm()),
+  getAllRoles        : ()=>dispatch(getRoles()),
+  getAllGenericValues: page => dispatch(getGenericValuesList(page)),
 });
 
 const mapStateToProps = createStructuredSelector({
-  initialValues: selectDoctorData(),
-  formValues   : selectDoctorFormValues(),
+  initialValues   : selectDoctorData(),
+  formValues      : selectDoctorFormValues(),
+  roles           : selectRoles(),
+  allGenericValues: selectGenericValuesList()
 
 });
 

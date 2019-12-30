@@ -26,7 +26,7 @@ async function fetchApi(data, url, method, header) {
 }
 
 function* setSessionAndLogin(response, headers, successCB, failureCB, params) {
-  if (response && response.data.access_token) {
+  if (response && response.data && response.data.access_token) {
     // const sessionValue = Array.from(headers.entries()).reduce((val, entry) => ({ ...val, [entry[0]]: entry[1] }), {});
     const sessionValue = response.data;
     cookieJar.setSession(sessionValue);

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
+import theme from 'constants/theme'
 
 export const PrimaryButton = styled(Button)`
   && {
@@ -14,7 +15,8 @@ export const SecondaryButton = styled(Button)`
   && {
     margin: 10px;
     height: 35px;
-    
+    background:  ${theme.color.white};
+    color: ${theme.color.text.secondary}
   }
 `;
 

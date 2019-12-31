@@ -5,22 +5,20 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-// import DeleteIcon from '@material-ui/icons/DeleteOutline';
-// import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/Edit';
 import { TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
 
 import { MainTable, Pagination, CenterEmptyTable } from 'commons/Table';
 import { PopUp } from 'commons/ModalStyle';
-import DeleteModal from 'commons/ModalStyle/deleteModal';
-import { isEmpty } from 'utils';
-
-// import DeleteUser from './deleteModal';
-import { selectUserList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
-import { getUserList, deleteUser } from '../actions';
-// import { Icon } from 'commons/Style/FormStyle';
-// import { USERS } from 'constants/routes'
+import { isEmpty, getDate, humanize } from 'utils';
+import { Icon } from 'commons/Style/FormStyle';
 import { Avatar } from 'components/Authenticated/styled';
 import avatar from 'assets/images/doctor.png'
+import EditFormModal from './EditModal';
+import { selectUserList, selectLoading, selectCurrentPage, selectTotal, selectRowsPerPage } from '../selectors';
+import { getUserList, deleteUser } from '../actions';
+import {StatusCell} from '../styled'
+
 
 class UserList extends Component {
   constructor(props) {
@@ -40,21 +38,21 @@ class UserList extends Component {
     this.props.history.push(url);
   };
 
-  // openDialog = id => {
-  //   this.setState({
-  //     dialogOpen: true,
-  //     selectedUserId: id,
-  //   });
-  // };
+  openDialog = id => {
+    this.setState({
+      dialogOpen: true,
+      selectedUserId: id,
+    });
+  };
 
-  // closeDialog = () => {
-  //   this.setState({
-  //     dialogOpen: false,
-  //   });
-  // };
+  closeDialog = () => {
+    this.setState({
+      dialogOpen: false,
+    });
+  };
 
   // handleDelete = id => {
-  //   this.props.deleteUser(id);
+  //   console.log(id)
   //   this.closeDialog();
   // };
 
@@ -69,36 +67,27 @@ class UserList extends Component {
     { value: '4', label: 'ICU' },
   ];
 
-  getLabel(array,val){
-    let filteredList = array.filter((item)=>item['value'] == val )
-      return filteredList[0].label
-      }
-
   render() {
     const { users, loading, currentPage, total, rowsPerPage } = this.props;
-    // const { dialogOpen, selectedUserId } = this.state;
+    const { dialogOpen, selectedUserId } = this.state;
     return (
       <div >
-        {/* <PopUp disableAutoFocus open={dialogOpen} onClose={this.closeDialog}>
-          <DeleteModal
+        <PopUp disableAutoFocus open={dialogOpen} onClose={this.closeDialog}>
+          <EditFormModal
             id={selectedUserId}
             handleClose={this.closeDialog}
-            handleDelete={this.handleDelete}
-            headerText="Are you sure you want to delete?"
-            bodyText="The entire data will be deleted."
           />
-        </PopUp> */}
-        <>
+        </PopUp>
         <MainTable>
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell />
+                <TableCell></TableCell>
                 <TableCell>Name</TableCell>
-                <TableCell>Address</TableCell>
-                <TableCell>Department</TableCell>
-                <TableCell>Mobile Number</TableCell>
-                {/* <TableCell>Action</TableCell> */}
+                <TableCell>Email</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>CreatedAt</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -109,34 +98,30 @@ class UserList extends Component {
                   (
                     {
                       id,
-                      first_name,
-                      last_name,
-                      home_twon_address,
-                      department,
-                      mobile_number
+                      name,
+                      email,
+                      status,
+                      created_at
                     },
                     i,
                   ) => (
                     <TableRow key={id} >
-                      <TableCell>{id}</TableCell>
+                      <TableCell>{id} </TableCell>
                       <TableCell><Avatar src={avatar} alt="profile" /></TableCell>
-                      <TableCell>{first_name} {last_name}</TableCell>
-                      <TableCell>{home_twon_address}</TableCell>
-                      <TableCell>{this.getLabel(this.departments,department)}</TableCell>
-                      <TableCell>{mobile_number}</TableCell>
-                      {/* <TableCell>
+                      <TableCell>{name}</TableCell>
+                      <TableCell>{email}</TableCell>
+                      <TableCell><StatusCell status={status}>{humanize(status)}</StatusCell></TableCell>
+                      <TableCell>{getDate(created_at)}</TableCell>
+                      <TableCell>
                         <Icon title="Edit">
-                          <EditIcon onClick={() => this.goto(`${USERS.USERS_ROUTE}/edit/${id}`)}></EditIcon>
-                        </Icon>
-                        <Icon title="Delete">
-                          <DeleteIcon
+                          <EditIcon
                             onClick={event => {
                               event.stopPropagation();
                               this.openDialog(id);
                             }}
-                          ></DeleteIcon>
+                          ></EditIcon>
                         </Icon>
-                      </TableCell> */}
+                      </TableCell>
                     </TableRow>
                   ),
                 )
@@ -151,7 +136,6 @@ class UserList extends Component {
             page={currentPage - 1}
             onChangePage={this.handleChangePage}
           />
-        </>
       </div>
     );
   }

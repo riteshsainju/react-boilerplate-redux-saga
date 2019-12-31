@@ -1,27 +1,64 @@
-import { DASHBOARD_PATH, EMPLOYEES, DOCTORS, GENERIC_VALUES, PATIENTS, USERS } from 'constants/routes'
+import { DASHBOARD_PATH, EMPLOYEES, DOCTORS, GENERIC_VALUES, PATIENTS, USERS, BILLING, REPORTS } from 'constants/routes'
+import { faHome, faProcedures, faUserCog, faUserMd, faUsers, faList, faUserFriends, faVial,faXRay } from '@fortawesome/free-solid-svg-icons'
 
 const SideBarItems = () => [
   {
     name: 'Dashboard',
-    link: DASHBOARD_PATH
+    url : DASHBOARD_PATH,
+    icon: faHome,
   },
   {
     name: 'Paitients',
-    link: PATIENTS.PATIENTS_ROUTE,
+    url : PATIENTS.PATIENTS_ROUTE,
+    icon: faProcedures,
+
   },
   {
-    name : 'Admin',
-    items: [
+    name    : 'Admin',
+    icon    : faUserCog,
+    children: [
       { name: 'Doctors',
-        link: DOCTORS.DOCTORS_ROUTE },
+        url : DOCTORS.DOCTORS_ROUTE,
+        icon: faUserMd,
+      },
       { name: 'Employees',
-        link: EMPLOYEES.EMPLOYEES_ROUTE },
+        url : EMPLOYEES.EMPLOYEES_ROUTE,
+        icon: faUserFriends
+
+      },
       { name: 'Generic Values',
-        link: GENERIC_VALUES.GENERIC_VALUES_ROUTE },
+        url : GENERIC_VALUES.GENERIC_VALUES_ROUTE,
+        icon: faList
+
+      },
       { name: 'Users',
-        link: USERS.USERS_ROUTE },
+        url : USERS.USERS_ROUTE,
+        icon: faUsers
+
+      },
     ]
-  }
+  },
+  {
+    name: 'Billing',
+    url : BILLING.BILLING_ROUTE,
+    icon: faProcedures,
+
+  },
+  {
+    name    : 'Reports',
+    icon    : faProcedures,
+    children: [
+      { name: 'Lab',
+        url : REPORTS.LAB_REPORTS_PATH,
+        icon: faVial,
+      },
+      { name: 'X-Ray',
+        url : REPORTS.XRAY_REPORTS_PATH,
+        icon: faXRay
+      },
+    ]
+
+  },
 ]
 
 export default SideBarItems

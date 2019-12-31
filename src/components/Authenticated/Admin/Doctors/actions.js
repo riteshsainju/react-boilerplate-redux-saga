@@ -1,6 +1,10 @@
 import action from 'actions';
 import * as CONS from './constants';
 
+export const getAllDoctors = action(CONS.GET_ALL_DOCTORS, 'page');
+export const getAllDoctorsSuccess = action(CONS.GET_ALL_DOCTORS_SUCCESS, 'data');
+export const getAllDoctorsFailure = action(CONS.GET_ALL_DOCTORS_FAILURE, 'error');
+
 export const getDoctorList = action(CONS.GET_DOCTORLIST, 'page');
 export const getDoctorListSuccess = action(CONS.GET_DOCTORLIST_SUCCESS, 'data');
 export const getDoctorListFailure = action(CONS.GET_DOCTORLIST_FAILURE, 'error');

@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import cookieJar from './cookieJar';
 
 export { cookieJar };
@@ -24,3 +25,17 @@ export const isLogin = () => {
   }
   return false;
 };
+
+export const humanize = path => {
+  // eslint-disable-line import/prefer-default-export
+  if (path !== null) {
+    const spath = path.split('_');
+    const readableValue = spath.map(p => p.charAt(0).toUpperCase() + p.substr(1).toLowerCase()).join(' ');
+    return readableValue;
+  }
+  return '';
+};
+
+export const getDate = (date, dateFormat = 'dd MMM, yyyy') => {
+  return date && format(new Date(date), dateFormat)
+}

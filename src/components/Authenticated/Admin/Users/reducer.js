@@ -7,6 +7,7 @@ const initialState = {
   error      : null,
   success    : null,
   userList   : [],
+  userData   : {},
   currentPage: 1,
   total      : 0,
   rowsPerPage: 10,
@@ -15,6 +16,8 @@ const initialState = {
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
   case CONS.GET_USERLIST:
+  case CONS.GET_USER:
+  case CONS.UPDATE_USER:
     return {
       ...state,
       loading: true,
@@ -32,8 +35,26 @@ const usersReducer = (state = initialState, action) => {
       total      : action.data.data.pagination.total,
       rowsPerPage: action.data.data.pagination.per_page,
     };
-  
+  case CONS.GET_USER_SUCCESS:
+    return {
+      ...state,
+      loading : false,
+      error   : null,
+      success : 'success',
+      userData: action.data.data,
+    };
+  case CONS.UPDATE_USER_SUCCESS:
+    return {
+      ...state,
+      loading : false,
+      error   : null,
+      success : 'success',
+      userData: action.data.data,
+
+    };
   case CONS.GET_USERLIST_FAILURE:
+  case CONS.GET_USER_FAILURE:
+  case CONS.UPDATE_USER_FAILURE:
     return {
       ...state,
       loading: false,

@@ -26,15 +26,13 @@ async function fetchApi(data, url, method, header) {
 }
 
 function* setSessionAndLogin(response, headers, successCB, failureCB, params) {
-  if (response && response.access_token) {
+  if (response && response.data && response.data.access_token) {
     // const sessionValue = Array.from(headers.entries()).reduce((val, entry) => ({ ...val, [entry[0]]: entry[1] }), {});
-    const sessionValue = response;
+    const sessionValue = response.data;
     cookieJar.setSession(sessionValue);
     yield put(push('/dashboard'));
   } else {
-    console.log('Invalid username or passwprd');
     toast.error('Invalid Username Or Password');
-
     yield put(push('/'));
   }
 }

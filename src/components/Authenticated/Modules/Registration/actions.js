@@ -21,4 +21,8 @@ export const deletePatient = action(CONS.DELETE_PATIENT, 'id', 'redirectUrl');
 export const deletePatientSuccess = action(CONS.DELETE_PATIENT_SUCCESS, 'data');
 export const deletePatientFailure = action(CONS.DELETE_PATIENT_FAILURE, 'error');
 
+export const searchPatient = action(CONS.SEARCH_PATIENT, 'data');
+export const searchPatientSuccess = action(CONS.SEARCH_PATIENT_SUCCESS, 'data');
+export const searchPatientFailure = action(CONS.SEARCH_PATIENT_FAILURE, 'error');
+
 export const resetPatientForm = action(CONS.RESET_PATIENT_FORM);

@@ -35,7 +35,7 @@ function* redirectOnSuccess(type) {
     const action = yield take(CONS.GET_GENERICVALUES_SUCCESS);
     const { data } = action;
     if (data) {
-      console.log('Patent data fetched successfully');
+      console.log('Generic data fetched successfully');
     }
   }
   if (type === 'addGenericValuesSuccess') {
@@ -103,7 +103,6 @@ function* redirectOnError(type) {
 function* getGenericValuesList(action) {
   const successWatcher = yield fork(redirectOnSuccess, 'getGenericValuesListSuccess');
   const errorWatcher = yield fork(redirectOnError, 'getGenericValuesListFailure');
-
   yield fork(AppSaga.get(`${API_BASE}/generic/?page=${action.page}`, getGenericValuesListSuccess, getGenericValuesListFailure, ''));
   yield take([LOCATION_CHANGE]);
   yield cancel(errorWatcher);
